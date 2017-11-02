@@ -13,20 +13,13 @@
   "eslintConfig": {
     "extends": "eslint-config-synacor",
     "rules": {
-      "indent": [
-        "error",
-        2
-      ],
-      "semi": [
-        "error",
-        "never"
-      ],
+      "indent": ["error", 2],
+      "semi": ["error", "never"],
+      "react/jsx-indent-props": ["error", 2],
       "lines-around-comment": "off"
     }
   },
-  "eslintIgnore": [
-    "build/*"
-  ],
+  "eslintIgnore": ["build/*"],
   "devDependencies": {
     "eslint": "^4.5.0",
     "eslint-config-synacor": "^1.1.0",

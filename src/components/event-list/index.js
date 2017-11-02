@@ -1,43 +1,27 @@
 import { h, Component } from 'preact'
 import TextInput from '../../components/text-input'
-import Select from '../../components/select'
 import List from '../../components/list'
 import style from './style'
 
 class EventList extends Component {
-  yearSelected = e => {
-    this.setState({ year: Number(e.target.value) })
-  }
-
   queryChanged = e => {
     this.setState({ query: e.target.value })
   }
 
   constructor() {
     super()
-    this.state = { query: '', year: new Date().getFullYear() }
+    this.state = { query: '' }
   }
 
-  render({ events }, { year, query }) {
+  render({ events }, { query }) {
+    const year = new Date().getFullYear()
     return (
       <div class={style['event-list']}>
-        <div class={style.filter}>
-          <TextInput
-            onInput={this.queryChanged}
-            placeholder="Find an event"
-            type="search"
-          />
-          <Select
-            onChange={this.yearSelected}
-            options={Array.from(
-              events.reduce((acc, e) => acc.add(e.year), new Set())
-            ).map(yearOption => (
-              <option key={yearOption} selected={yearOption === year}>
-                {yearOption}
-              </option>
-            ))}
-          />
-        </div>
+        <TextInput
+          onInput={this.queryChanged}
+          placeholder="Find an event"
+          type="search"
+        />
         <List>
           {events
             .filter(e => e.year === year)
