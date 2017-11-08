@@ -1,2 +1,2 @@
 http://scouting.netlify.com/* https://scouting.netlify.com/:splat 301!
-/api/*  https://pigmice-scouting.herokuapp.com/:splat  200
+/api/*  https://pigmice-scouting.herokuapp.com/:splat 200!
