@@ -2,7 +2,7 @@ import './style'
 import App from './components/app'
 import { render, h } from 'preact'
 
-render(<App />, document.body)
+render(<App />, document.body, document.getElementById('app'))
 
 const unregiesterSW = async () => {
   if ('serviceWorker' in navigator) {
@@ -13,3 +13,7 @@ const unregiesterSW = async () => {
 }
 
 unregiesterSW()
+
+if (module.hot) {
+  module.hot.accept()
+}

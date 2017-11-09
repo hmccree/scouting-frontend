@@ -20,6 +20,7 @@ class EventList extends Component {
           onInput={this.queryChanged}
           placeholder="Find an event"
           type="search"
+          value={query}
         />
         <List>
           {events
