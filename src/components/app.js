@@ -6,7 +6,7 @@ import Event from '../routes/event'
 import Error404 from '../routes/404'
 
 export default () => (
-  <div>
+  <div id="app">
     <Router>
       <Home path="/" />
       <Event path="/events/:eventId" />
