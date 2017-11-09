@@ -1,4 +1,5 @@
 import './style'
 import App from './components/app'
+import { render, h } from 'preact'
 
-export default App
+render(<App />, document.body)

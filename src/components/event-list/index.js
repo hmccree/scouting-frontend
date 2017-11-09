@@ -14,7 +14,6 @@ class EventList extends Component {
   }
 
   render({ events }, { query }) {
-    const year = new Date().getFullYear()
     return (
       <div class={style['event-list']}>
         <TextInput
@@ -24,7 +23,6 @@ class EventList extends Component {
         />
         <List>
           {events
-            .filter(e => e.year === year)
             .filter(e => e.name.toLowerCase().includes(query.toLowerCase()))
             .map(e => <li key={e.key}>{e.name}</li>)}
         </List>
