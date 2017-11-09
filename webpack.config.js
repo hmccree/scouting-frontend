@@ -2,6 +2,7 @@ const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const indexHtml = path.join(__dirname, 'src', 'index.html')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = env => {
   const production = env.NODE_ENV === 'production'
@@ -62,7 +63,10 @@ module.exports = env => {
         }
       ]
     },
-    plugins: [new ExtractTextPlugin('styles.css')],
+    plugins: [
+      new ExtractTextPlugin('styles.css'),
+      new CopyWebpackPlugin([{ from: path.join(__dirname, '_redirects') }])
+    ],
     output: {
       path: path.resolve(__dirname, 'build'),
       filename: 'scripts.js'
