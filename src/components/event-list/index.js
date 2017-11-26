@@ -14,6 +14,7 @@ class EventList extends Component {
   }
 
   render({ events }, { query }) {
+    const twoDaysAgo = Date.now() - 2 * 24 * 60 * 60 * 1000
     return (
       <div class={style['event-list']}>
         <TextInput
@@ -25,6 +26,17 @@ class EventList extends Component {
         <List>
           {events
             .filter(e => e.name.toLowerCase().includes(query.toLowerCase()))
+            .map(e => {
+              e.date = new Date(e.date)
+              return e
+            })
+            .sort((a, b) => {
+              if (a.date > b.date) {
+                return b.date > twoDaysAgo ? 1 : -1
+              } else {
+                return a.date > twoDaysAgo ? -1 : 1
+              }
+            })
             .map(e => (
               <li key={e.key}>
                 <a href={`/events/${e.key}`}>{e.name}</a>
