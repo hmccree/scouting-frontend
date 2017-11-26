@@ -1,0 +1,44 @@
+.match
+  min-height: 100%
+  display: grid
+  grid-template-rows: auto 1fr auto auto
+  grid-template-columns: 50% 50%
+
+  & header
+    grid-column: 1 / -1
+
+.alliance
+  display: flex
+  height: 150px
+  width: 100%
+  text-decoration: none
+  grid-column: 1 / -1
+
+  & > *
+    flex-grow: 1
+
+.red
+  background: #f23535
+
+.blue
+  background: #359bf2
+
+.score
+  display: flex
+  align-items: center
+  justify-content: center
+  flex-direction: column
+  color: white
+  font-size: 35px
+  max-width: 150px
+
+  & h2
+    font-size: 15px
+    margin: 0
+
+.match-name, .match-time
+  text-align: center
+  display: flex
+  justify-content: center
+  align-items: center
+  flex-direction: column
