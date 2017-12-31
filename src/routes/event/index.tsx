@@ -1,32 +1,36 @@
 import { h } from 'preact'
-import wrap from '../../wrap'
+import Resolver from '../../resolver'
 import Header from '../../components/header'
 import { getEvent } from '../../api'
 import { parseMatchKey } from '../../utils'
-import { event as eventClass } from './style'
+import { event as eventClass } from './style.sss'
 import List from '../../components/list'
 import Spinner from '../../components/spinner'
 import DateDisplay from '../../components/date-display'
+import FRCEvent from '../../models/frc-event'
 
-const Event = wrap(
-  ({ eventId, data: { event = {} } }) => {
-    const { matches } = event
-    return (
+const Event = ({ eventId }: { eventId: string }) => (
+  <Resolver
+    data={{ event: getEvent(eventId) }}
+    render={({ event }) => (
       <div class={eventClass}>
-        <Header title={event.shortName || `Event ${eventId}`} back="/" />
-        <DateDisplay date={event.date && new Date(event.date)} />
-        {matches === undefined ? (
+        <Header
+          title={(event && event.shortName) || `Event ${eventId}`}
+          back="/"
+        />
+        <DateDisplay date={event && event.date && new Date(event.date)} />
+        {typeof event === 'undefined' ? (
           <Spinner />
-        ) : matches === null || matches.length === 0 ? (
+        ) : event.matches === null || event.matches.length === 0 ? (
           <p>No Matches</p>
         ) : (
           <List>
-            {matches
+            {event.matches
               .map(m => {
-                m.time = new DateDisplay(m.actualTime || m.predictedTime)
+                m.time = new Date(m.actualTime || m.predictedTime)
                 return m
               })
-              .sort((a, b) => a.time > b.time)
+              .sort((a, b) => (a.time > b.time ? 1 : -1))
               .map(m => {
                 const { matchKey } = parseMatchKey(m.key)
                 return (
@@ -40,9 +44,8 @@ const Event = wrap(
           </List>
         )}
       </div>
-    )
-  },
-  ({ eventId }) => ({ event: getEvent(eventId) })
+    )}
+  />
 )
 
 export default Event
