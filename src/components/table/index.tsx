@@ -3,8 +3,10 @@ import Analysis from '../../models/analysis'
 
 const Table = ({ data }: { data: Analysis[] }) => (
   <table>
-    <th />
-    {data.map(analysis => <th>{analysis.team}</th>)}
+    <tr>
+      <th />
+      {data.map(analysis => <th>{analysis.team}</th>)}
+    </tr>
     {Object.keys(data[0].stats).map(stat => (
       <TableRow data={data} stat={stat} />
     ))}
