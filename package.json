@@ -13,7 +13,9 @@
     "eslint-plugin-babel": "^4.1.2",
     "eslint-plugin-react": "^7.5.1"
   },
-  "eslintIgnore": ["build/*"],
+  "eslintIgnore": [
+    "build/*"
+  ],
   "license": "MIT",
   "prettier": {
     "semi": false,
