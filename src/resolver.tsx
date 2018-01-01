@@ -6,7 +6,7 @@ import {
   ComponentProps
 } from 'preact'
 
-type MaybeKeys<T> = { [K in keyof T]: T[K] | void }
+type MaybeKeys<T> = { [K in keyof T]: T[K] }
 
 interface ResolverProps<T> {
   data: { [K in keyof T]: Promise<T[K]> } & { [key: string]: Promise<any> }
