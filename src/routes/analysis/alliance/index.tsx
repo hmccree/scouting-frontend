@@ -24,14 +24,12 @@ const AllianceAnalysis = ({
           title={`${matchId.toUpperCase()} - ${camelToTitle(color)} Alliance`}
           back={`/events/${eventId}/${matchId}`}
         />
-        {data ? (
-          data.length === 0 ? (
-            <p>No reports have been submitted for this alliance yet.</p>
-          ) : (
-            <Table data={data} />
-          )
-        ) : (
+        {!data ? (
           <Spinner />
+        ) : data.length === 0 ? (
+          <p>No reports have been submitted for this alliance yet.</p>
+        ) : (
+          <Table data={data} />
         )}
       </div>
     )}
