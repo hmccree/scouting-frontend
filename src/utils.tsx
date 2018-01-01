@@ -8,8 +8,8 @@ const formatTime = (date: Date): string =>
     timeZoneName: 'short'
   })
 
-const formatTeamNumber = (teamId: string): number =>
-  Number(teamId.replace('frc', ''))
+const formatTeamNumber = (teamId: string): string =>
+  teamId.replace('frc', '')
 
 const formatMatchId = (matchId: string): string => {
   const id = matchId.toUpperCase()

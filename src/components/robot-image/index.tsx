@@ -2,7 +2,7 @@ import { h } from 'preact'
 import { robotImage, blue, red } from './style.sss'
 
 interface RobotImageProps {
-  team: number
+  team: string
   color: string
   key: string
 }
