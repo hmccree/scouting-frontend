@@ -15,14 +15,6 @@ interface LoginState {
 }
 
 class Login extends Component<LoginProps, LoginState> {
-  handleUsernameChange = (e: Event) => {
-    this.setState({ username: (e.target as HTMLInputElement).value })
-  }
-
-  handlePasswordChange = (e: Event) => {
-    this.setState({ password: (e.target as HTMLInputElement).value })
-  }
-
   handleLogin = (e: Event, back: string) => {
     e.preventDefault()
     authenticate(this.state)
