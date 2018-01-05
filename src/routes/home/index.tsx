@@ -3,11 +3,13 @@ import { home } from './style.sss'
 import Resolver from '../../resolver'
 import TextInput, { TextInputEvent } from '../../components/text-input'
 import { getEvents } from '../../api'
-import { sortEvents } from '../../utils'
+import { sortEvents, hasValidJWT } from '../../utils'
 import Spinner from '../../components/spinner'
 import List from '../../components/list'
 import DateDisplay from '../../components/date-display'
 import FRCEvent from '../../models/frc-event'
+import Button from '../../components/button'
+import { route } from 'preact-router'
 
 interface HomeProps {
   events: FRCEvent[]
@@ -40,6 +42,7 @@ export default () => (
           )
           return (
             <div class={home}>
+              {hasValidJWT() ? null : <Button href="/login">Login</Button>}
               <TextInput
                 onInput={this.queryChanged}
                 placeholder="Search for events"

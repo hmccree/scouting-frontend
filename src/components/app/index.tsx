@@ -3,6 +3,7 @@ import { Router, Route } from 'preact-router'
 import { app } from './style.sss'
 
 import Home from '../../routes/home'
+import Login from '../../routes/login'
 import Event from '../../routes/event'
 import Match from '../../routes/match'
 import Error404 from '../../routes/404'
@@ -12,6 +13,7 @@ const App = () => (
   <div id={app}>
     <Router>
       <Route path="/" component={Home} />
+      <Route path="/login" component={Login} />
       <Route path="/events/:eventId" component={Event} />
       <Route path="/events/:eventId/:matchId" component={Match} />
       <Route path="/events/:eventId/:matchId/scout" component={Scout} />

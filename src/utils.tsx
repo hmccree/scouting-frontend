@@ -1,5 +1,23 @@
 import FRCEvent from './models/frc-event'
 
+const hasValidJWT = () => {
+  let jwt = getJWT()
+  if (!jwt) {
+    return false
+  }
+
+  let parts = jwt.split('.')
+  if (parts.length != 3) {
+    return false
+  }
+
+  return JSON.parse(atob(parts[1])).exp > Number(new Date()) / 1000
+}
+
+const getJWT = () => {
+  return localStorage.getItem('jwt')
+}
+
 const formatTime = (date: Date): string =>
   date.toLocaleTimeString(undefined, {
     hour12: true,
@@ -48,6 +66,8 @@ const camelToTitle = (text: string) => {
 }
 
 export {
+  hasValidJWT,
+  getJWT,
   formatTeamNumber,
   formatMatchId,
   sortEvents,
