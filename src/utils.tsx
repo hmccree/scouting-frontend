@@ -8,8 +8,7 @@ const formatTime = (date: Date): string =>
     timeZoneName: 'short'
   })
 
-const formatTeamNumber = (teamId: string): string =>
-  teamId.replace('frc', '')
+const formatTeamNumber = (teamId: string): string => teamId.replace('frc', '')
 
 const formatMatchId = (matchId: string): string => {
   const id = matchId.toUpperCase()
@@ -43,10 +42,16 @@ const parseMatchKey = (name: string) => {
   return { eventKey, matchKey }
 }
 
+const camelToTitle = (text: string) => {
+  const d = text.replace(/[A-Z]/g, m => ' ' + m)
+  return d[0].toUpperCase() + d.slice(1)
+}
+
 export {
   formatTeamNumber,
   formatMatchId,
   sortEvents,
   formatTime,
-  parseMatchKey
+  parseMatchKey,
+  camelToTitle
 }

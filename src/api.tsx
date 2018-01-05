@@ -1,5 +1,6 @@
 import FRCEvent from './models/frc-event'
 import Match from './models/match'
+import Schema from './models/schema'
 
 const queryAPI = (path: string): Promise<any> =>
   fetch(`https://scouting.netlify.com/api/${path}`).then(d => d.json())
@@ -12,4 +13,6 @@ const getEvent = (eventKey: string): Promise<FRCEvent> =>
 const getMatch = (eventKey: string, matchKey: string): Promise<Match> =>
   queryAPI(`events/${eventKey}/${eventKey}_${matchKey}`)
 
-export { getEvents, getEvent, getMatch }
+const getSchema = (): Promise<Schema> => queryAPI('schema')
+
+export { getEvents, getEvent, getMatch, getSchema }

@@ -6,6 +6,7 @@ import Home from '../../routes/home'
 import Event from '../../routes/event'
 import Match from '../../routes/match'
 import Error404 from '../../routes/404'
+import Scout from '../../routes/scout'
 
 const App = () => (
   <div id={app}>
@@ -13,6 +14,7 @@ const App = () => (
       <Route path="/" component={Home} />
       <Route path="/events/:eventId" component={Event} />
       <Route path="/events/:eventId/:matchId" component={Match} />
+      <Route path="/events/:eventId/:matchId/scout" component={Scout} />
       <Route default component={Error404} />
     </Router>
   </div>

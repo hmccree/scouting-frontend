@@ -7,7 +7,12 @@
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "target": "ESNext",
-    "sourceMap": true
+    "sourceMap": true,
+    "baseUrl": "./src",
+    "paths": {
+      "linkstate.ts": ["models/linkstate"]
+    }
   },
-  "files": ["./src/index.tsx", "./src/sw.ts"]
+  "files": ["./src/index.tsx", "./src/sw.ts"],
+  "include": ["./src/models/linkstate.d.ts"]
 }
