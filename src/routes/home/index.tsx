@@ -1,7 +1,7 @@
 import { h, Component } from 'preact'
 import { home } from './style.sss'
 import Resolver from '../../resolver'
-import TextInput, { TextInputEvent } from '../../components/text-input'
+import SearchInput, { SearchInputEvent } from '../../components/search-input'
 import { getEvents } from '../../api'
 import { sortEvents, hasValidJWT } from '../../utils'
 import Spinner from '../../components/spinner'
@@ -32,7 +32,7 @@ export default () => (
           this.state = { query: '' }
         }
 
-        queryChanged = (e: TextInputEvent) => {
+        queryChanged = (e: SearchInputEvent) => {
           this.setState({ query: e.target.value })
         }
 
@@ -46,7 +46,7 @@ export default () => (
               {hasValidJWT() ? null : <Button href="/login">Login</Button>}
               <Header
                 contents={
-                  <TextInput
+                  <SearchInput
                     onInput={this.queryChanged}
                     placeholder="Search for events"
                     type="search"

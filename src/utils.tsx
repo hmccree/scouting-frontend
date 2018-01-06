@@ -1,13 +1,13 @@
 import FRCEvent from './models/frc-event'
 
 const hasValidJWT = () => {
-  let jwt = getJWT()
+  const jwt = getJWT()
   if (!jwt) {
     return false
   }
 
-  let parts = jwt.split('.')
-  if (parts.length != 3) {
+  const parts = jwt.split('.')
+  if (parts.length !== 3) {
     return false
   }
 

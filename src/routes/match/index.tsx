@@ -13,12 +13,7 @@ import {
   score as scoreClass
 } from './style.sss'
 import RobotImage from '../../components/robot-image'
-import {
-  formatTeamNumber,
-  formatMatchId,
-  formatTime,
-  hasValidJWT
-} from '../../utils'
+import { formatTeamNumber, formatMatchId, formatTime } from '../../utils'
 import Button from '../../components/button'
 import FRCEvent from '../../models/frc-event'
 import Match from '../../models/match'
@@ -51,11 +46,11 @@ const Match = ({ eventId, matchId }: { eventId: string; matchId: string }) => (
     data={{ match: getMatch(eventId, matchId), event: getEvent(eventId) }}
     render={({ match, event }) => {
       const url = `/events/${eventId}/${matchId}`
+      const eventName = (event && event.shortName) || eventId
       return (
         <div class={matchClass}>
           <Header
-            title={`${matchId.toUpperCase()} - ${(event && event.shortName) ||
-              eventId}`}
+            title={`${matchId.toUpperCase()} - ${eventName}`}
             back={`/events/${eventId}`}
           />
           <div class={matchNameClass}>
@@ -67,11 +62,7 @@ const Match = ({ eventId, matchId }: { eventId: string; matchId: string }) => (
                 ? formatTime(new Date(match.actualTime || match.predictedTime))
                 : 'Loading...'}
             </h2>
-            <Button
-              href={hasValidJWT() ? `${url}/scout` : `/login?back=${url}`}
-            >
-              Scout
-            </Button>
+            <Button href={`${url}/scout`}>Scout</Button>
           </div>
           {match && (
             <Alliance

@@ -2,14 +2,22 @@ import FRCEvent from './models/frc-event'
 import Match from './models/match'
 import Schema from './models/schema'
 
-const endpoint = 'https://scouting.netlify.com/api'
+const endpoint = 'https://api.pigmice.ga'
+import { hasValidJWT, getJWT } from './utils'
 
 const queryAPI = (
   path: string,
   method: string = 'GET',
   body?: any
 ): Promise<any> =>
-  fetch(`${endpoint}/${path}`, { method, body: JSON.stringify(body) })
+  fetch(`${endpoint}/${path}`, {
+    method,
+    body: JSON.stringify(body),
+    headers:
+      hasValidJWT() && method !== 'GET'
+        ? new Headers({ Authentication: `Bearer ${getJWT()}` })
+        : undefined
+  })
 
 const getEvents = (): Promise<FRCEvent[]> =>
   queryAPI('events').then(d => d.json())
@@ -22,7 +30,10 @@ const getMatch = (eventKey: string, matchKey: string): Promise<Match> =>
 
 const getSchema = (): Promise<Schema> => queryAPI('schema').then(d => d.json())
 
-const authenticate = (credentials: { username: string; password: string }) =>
+const authenticate = (credentials: {
+  username: string
+  password: string
+}): Promise<string> =>
   queryAPI('authenticate', 'POST', credentials).then(async resp => {
     if (resp.status < 200 || resp.status >= 300) {
       throw new Error(resp.statusText)
@@ -30,4 +41,15 @@ const authenticate = (credentials: { username: string; password: string }) =>
     return (await resp.json()).jwt
   })
 
-export { getEvents, getEvent, getMatch, getSchema, authenticate }
+const submitReport = (
+  team: string,
+  eventKey: string,
+  matchKey: string,
+  stats: { [key: string]: boolean | number }
+) =>
+  queryAPI(`reports/${eventKey}/${eventKey}_${matchKey}`, 'PUT', {
+    team,
+    stats
+  })
+
+export { getEvents, getEvent, getMatch, getSchema, authenticate, submitReport }
