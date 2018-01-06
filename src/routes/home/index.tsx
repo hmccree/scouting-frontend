@@ -10,6 +10,7 @@ import DateDisplay from '../../components/date-display'
 import FRCEvent from '../../models/frc-event'
 import Button from '../../components/button'
 import { route } from 'preact-router'
+import Header from '../../components/header'
 
 interface HomeProps {
   events: FRCEvent[]
@@ -43,11 +44,15 @@ export default () => (
           return (
             <div class={home}>
               {hasValidJWT() ? null : <Button href="/login">Login</Button>}
-              <TextInput
-                onInput={this.queryChanged}
-                placeholder="Search for events"
-                type="search"
-                value={query}
+              <Header
+                contents={
+                  <TextInput
+                    onInput={this.queryChanged}
+                    placeholder="Search for events"
+                    type="search"
+                    value={query}
+                  />
+                }
               />
               {events === undefined ? (
                 <Spinner />
