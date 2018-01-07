@@ -17,7 +17,7 @@ import NumberPicker from '../../components/number-picker'
 import Button from '../../components/button'
 import TeamPicker from '../../components/team-picker'
 
-import { scout, fields } from './style.sss'
+import { scout, fields, scoutMain } from './style.sss'
 
 interface ScoutProps {
   event: FRCEvent
@@ -113,23 +113,25 @@ const Scout = ({ eventId, matchId }: { eventId: string; matchId: string }) => {
                   title={`Scout - ${matchId.toUpperCase()} - ${eventName}`}
                   back={`/events/${eventId}/${matchId}`}
                 />
-                {match && (
-                  <TeamPicker
-                    onChange={this.changeTeam}
-                    redAlliance={match.redAlliance}
-                    blueAlliance={match.blueAlliance}
-                  />
-                )}
-                <div class={fields}>
-                  {Object.keys(schema || {}).map(fieldName => (
-                    <Field
-                      fieldName={fieldName}
-                      fieldType={schema[fieldName]}
-                      self={this}
+                <div class={scoutMain}>
+                  {match && (
+                    <TeamPicker
+                      onChange={this.changeTeam}
+                      redAlliance={match.redAlliance}
+                      blueAlliance={match.blueAlliance}
                     />
-                  ))}
+                  )}
+                  <div class={fields}>
+                    {Object.keys(schema || {}).map(fieldName => (
+                      <Field
+                        fieldName={fieldName}
+                        fieldType={schema[fieldName]}
+                        self={this}
+                      />
+                    ))}
+                  </div>
+                  <Button onClick={this.submit}>Submit Report</Button>
                 </div>
-                <Button onClick={this.submit}>Submit Report</Button>
               </div>
             )
           }

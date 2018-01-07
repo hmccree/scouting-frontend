@@ -65,6 +65,10 @@ const camelToTitle = (text: string) => {
   return d[0].toUpperCase() + d.slice(1)
 }
 
+const toPercentage = (val: number) => Math.round(val * 100) + '%'
+
+const toPrettyNumber = (val: number) => Math.round(val * 10) / 10
+
 export {
   hasValidJWT,
   getJWT,
@@ -73,5 +77,7 @@ export {
   sortEvents,
   formatTime,
   parseMatchKey,
-  camelToTitle
+  camelToTitle,
+  toPercentage,
+  toPrettyNumber
 }

@@ -47,6 +47,7 @@ const Match = ({ eventId, matchId }: { eventId: string; matchId: string }) => (
     render={({ match, event }) => {
       const url = `/events/${eventId}/${matchId}`
       const eventName = (event && event.shortName) || eventId
+      console.log(match && match.blueAlliance)
       return (
         <div class={matchClass}>
           <Header

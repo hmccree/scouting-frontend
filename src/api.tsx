@@ -1,9 +1,11 @@
 import FRCEvent from './models/frc-event'
 import Match from './models/match'
+import Analysis from './models/analysis'
 import Schema from './models/schema'
 
-const endpoint = 'https://api.pigmice.ga'
 import { hasValidJWT, getJWT } from './utils'
+
+const endpoint = 'https://api.pigmice.ga'
 
 const queryAPI = (
   path: string,
@@ -52,4 +54,21 @@ const submitReport = (
     stats
   })
 
-export { getEvents, getEvent, getMatch, getSchema, authenticate, submitReport }
+const getAllianceAnalysis = (
+  eventKey: string,
+  matchKey: string,
+  color: string
+): Promise<Analysis[]> =>
+  queryAPI(`analysis/${eventKey}/${eventKey}_${matchKey}/${color}`).then(d =>
+    d.json()
+  )
+
+export {
+  getEvents,
+  getEvent,
+  getMatch,
+  getAllianceAnalysis,
+  getSchema,
+  authenticate,
+  submitReport
+}

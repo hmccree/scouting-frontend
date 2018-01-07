@@ -6,6 +6,7 @@ import Home from '../../routes/home'
 import Login from '../../routes/login'
 import Event from '../../routes/event'
 import Match from '../../routes/match'
+import AllianceAnalysis from '../../routes/analysis/alliance'
 import Error404 from '../../routes/404'
 import Scout from '../../routes/scout'
 
@@ -16,6 +17,10 @@ const App = () => (
       <Route path="/login" component={Login} />
       <Route path="/events/:eventId" component={Event} />
       <Route path="/events/:eventId/:matchId" component={Match} />
+      <Route
+        path="/events/:eventId/:matchId/alliance/:color"
+        component={AllianceAnalysis}
+      />
       <Route path="/events/:eventId/:matchId/scout" component={Scout} />
       <Route default component={Error404} />
     </Router>
