@@ -55,7 +55,7 @@ self.addEventListener('fetch', (event: FetchEvent) => {
     return
   }
 
-  if (request.url === 'https://scouting.netlify.com/api/events') {
+  if (request.url === 'https://api.pigmice.ga/events') {
     event.respondWith(
       fetch(event.request)
         .then(res => {
@@ -72,11 +72,9 @@ self.addEventListener('fetch', (event: FetchEvent) => {
           return new Response(JSON.stringify(events))
         })
     )
-  } else if (
-    request.url.match(/https:\/\/scouting.netlify.com\/api\/events\/.*/)
-  ) {
+  } else if (request.url.match(/https:\/\/api.pigmice.ga\/events\/.*/)) {
     const eventKey = request.url.match(
-      /https:\/\/scouting.netlify.com\/api\/events\/(.*)/
+      /https:\/\/api.pigmice.ga\/events\/(.*)/
     )[1]
     event.respondWith(
       fetch(event.request)

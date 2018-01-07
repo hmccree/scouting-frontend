@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "dependencies": {
     "dexie": "^2.0.1",
+    "linkstate": "^1.1.0",
     "preact": "^8.2.7",
     "preact-router": "^2.6.0",
-    "webpack-config-calebeby": "^0.4.0"
+    "webpack-config-calebeby": "^0.5.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.1.2",

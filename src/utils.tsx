@@ -1,8 +1,21 @@
 import FRCEvent from './models/frc-event'
 
-const camelToTitle = (text: string) => {
-  const d = text.replace(/[A-Z]/g, m => ' ' + m)
-  return d[0].toUpperCase() + d.slice(1)
+const hasValidJWT = () => {
+  const jwt = getJWT()
+  if (!jwt) {
+    return false
+  }
+
+  const parts = jwt.split('.')
+  if (parts.length !== 3) {
+    return false
+  }
+
+  return JSON.parse(atob(parts[1])).exp > Number(new Date()) / 1000
+}
+
+const getJWT = () => {
+  return localStorage.getItem('jwt')
 }
 
 const formatTime = (date: Date): string =>
@@ -47,11 +60,24 @@ const parseMatchKey = (name: string) => {
   return { eventKey, matchKey }
 }
 
+const camelToTitle = (text: string) => {
+  const d = text.replace(/[A-Z]/g, m => ' ' + m)
+  return d[0].toUpperCase() + d.slice(1)
+}
+
+const toPercentage = (val: number) => Math.round(val * 100) + '%'
+
+const toPrettyNumber = (val: number) => Math.round(val * 10) / 10
+
 export {
-  camelToTitle,
+  hasValidJWT,
+  getJWT,
   formatTeamNumber,
   formatMatchId,
   sortEvents,
   formatTime,
-  parseMatchKey
+  parseMatchKey,
+  camelToTitle,
+  toPercentage,
+  toPrettyNumber
 }

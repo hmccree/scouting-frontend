@@ -4,8 +4,9 @@ import Spinner from '../../../components/spinner'
 import Table from '../../../components/table'
 import Resolver from '../../../resolver'
 import Analysis from '../../../models/analysis'
-import { getAllianceAnalysis } from '../../../api'
+import { getAllianceAnalysis, getSchema } from '../../../api'
 import { camelToTitle } from '../../../utils'
+import { allianceAnalysis } from './style.sss'
 
 const AllianceAnalysis = ({
   eventId,
@@ -17,22 +18,27 @@ const AllianceAnalysis = ({
   color: string
 }) => (
   <Resolver
-    data={{ data: getAllianceAnalysis(eventId, matchId, color) }}
-    render={({ data }) => (
-      <div>
-        <Header
-          title={`${matchId.toUpperCase()} - ${camelToTitle(color)} Alliance`}
-          back={`/events/${eventId}/${matchId}`}
-        />
-        {!data ? (
-          <Spinner />
-        ) : data.length === 0 ? (
-          <p>No reports have been submitted for this alliance yet.</p>
-        ) : (
-          <Table data={data} />
-        )}
-      </div>
-    )}
+    data={{
+      data: getAllianceAnalysis(eventId, matchId, color),
+      schema: getSchema()
+    }}
+    render={({ data, schema }) => {
+      return (
+        <div class={allianceAnalysis}>
+          <Header
+            title={`${matchId.toUpperCase()} - ${camelToTitle(color)} Alliance`}
+            back={`/events/${eventId}/${matchId}`}
+          />
+          {!data ? (
+            <Spinner />
+          ) : data.length === 0 ? (
+            <p>No reports have been submitted for this alliance yet.</p>
+          ) : (
+            <Table data={data} schema={schema} />
+          )}
+        </div>
+      )
+    }}
   />
 )
 

@@ -46,11 +46,12 @@ const Match = ({ eventId, matchId }: { eventId: string; matchId: string }) => (
     data={{ match: getMatch(eventId, matchId), event: getEvent(eventId) }}
     render={({ match, event }) => {
       const url = `/events/${eventId}/${matchId}`
+      const eventName = (event && event.shortName) || eventId
+      console.log(match && match.blueAlliance)
       return (
         <div class={matchClass}>
           <Header
-            title={`${matchId.toUpperCase()} - ${(event && event.shortName) ||
-              eventId}`}
+            title={`${matchId.toUpperCase()} - ${eventName}`}
             back={`/events/${eventId}`}
           />
           <div class={matchNameClass}>

@@ -1,19 +1,19 @@
 .input
+  appearance: textfield
+  border: 0
+  padding-bottom: 4px
+  border-bottom: 2px solid gray(50%)
+  transition: border-bottom-color 0.2s ease
   display: block
-  border: none
-  padding: 10px 11px
-  margin: 10px auto
-  max-width: calc(100% - 20px)
-  width: 400px
-  border-radius: 2px
-  font-size: 17px
-  box-shadow: 1px 1px 4px rgba(#000, 0.5)
-  outline: none
-  transition: box-shadow 0.3s ease
-
-  &::placeholder
-    color: gray(60%)
-    opacity: 1
+  margin: 4px
+  font-size: 1.2rem
+  background: transparent
 
   &:focus
-    box-shadow: 1px 1px 8px rgba(#000, 0.7)
+    border-bottom-color: purple
+    outline: none
+
+  &:invalid
+    border-bottom-color: red
+    box-shadow: none
+
