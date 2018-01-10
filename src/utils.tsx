@@ -26,6 +26,13 @@ const formatTime = (date: Date): string =>
     timeZoneName: 'short'
   })
 
+const formatDate = (date: Date): string =>
+  date.toLocaleDateString(undefined, {
+    year: '2-digit',
+    month: '2-digit',
+    day: '2-digit'
+  })
+
 const formatTeamNumber = (teamId: string): string => teamId.replace('frc', '')
 
 const formatMatchId = (matchId: string): string => {
@@ -69,15 +76,39 @@ const toPercentage = (val: number) => Math.round(val * 100) + '%'
 
 const toPrettyNumber = (val: number) => Math.round(val * 10) / 10
 
+const eventTypeNames = new Map<number, string>([
+  [0, ''],
+  [1, ''],
+  [5, 'DCMP'],
+  [2, 'DCMP'],
+  [3, 'CMP'],
+  [4, 'CMP'],
+  [6, ''],
+  [99, 'Off'],
+  [100, 'Pre'],
+  [-1, '']
+])
+
+const eventTypeName = (eventType: number) => eventTypeNames.get(eventType)
+
+const abbreviate = (str: string) =>
+  str
+    .split(' ')
+    .map(v => v[0].toUpperCase())
+    .join('')
+
 export {
   hasValidJWT,
   getJWT,
   formatTeamNumber,
   formatMatchId,
   sortEvents,
+  formatDate,
   formatTime,
   parseMatchKey,
   camelToTitle,
   toPercentage,
-  toPrettyNumber
+  toPrettyNumber,
+  eventTypeName,
+  abbreviate
 }
