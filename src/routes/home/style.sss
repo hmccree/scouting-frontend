@@ -11,6 +11,30 @@
     height: 50px
     width: 100%
 
+.headerContents
+  width: 100%
+  display: grid
+  grid-template-columns: 1fr minmax(auto, 500px) 1fr
+
+  @media (max-width: 700px)
+    grid-template-columns: 0 1fr auto
+    grid-column-gap: 10px
+
+  & input
+    grid-column: 2
+    flex-shrink: 1
+    min-width: 0
+
+  & a, & button
+    grid-column: 3
+    justify-self: end
+    align-self: center
+    background: white
+    color: black
+
+    @media (max-width: 700px)
+      background: color(purple tint(25%))
+
 .info
   display: flex
   flex-direction: row

@@ -11,7 +11,14 @@ import FRCEvent from '../../models/frc-event'
 import Button from '../../components/button'
 import { route } from 'preact-router'
 import Header from '../../components/header'
-import { info as infoClass, dcmp, cmp, off, pre } from './style.sss'
+import {
+  info as infoClass,
+  headerContents,
+  dcmp,
+  cmp,
+  off,
+  pre
+} from './style.sss'
 
 interface HomeProps {
   events: FRCEvent[]
@@ -19,6 +26,7 @@ interface HomeProps {
 
 interface HomeState {
   query: string
+  loggedIn: boolean
 }
 
 const eventTypeClassMap = new Map<Number, string>([
@@ -39,33 +47,48 @@ export default () => (
       class Home extends Component<HomeProps, HomeState> {
         constructor() {
           super()
-          this.state = { query: '' }
+          this.state = { query: '', loggedIn: false }
+        }
+
+        componentWillMount() {
+          this.setState({ loggedIn: hasValidJWT() })
         }
 
         queryChanged = (e: SearchInputEvent) => {
           this.setState({ query: e.target.value })
         }
 
+        logout = () => {
+          localStorage.removeItem('jwt')
+          this.setState({ loggedIn: false })
+        }
+
         eventTypeClass = (eventType: Number) => {
           return eventTypeClassMap.get(eventType)
         }
 
-        render({ events }: HomeProps, { query }: HomeState) {
+        render({ events }: HomeProps, { query, loggedIn }: HomeState) {
           const sortedEvents = sortEvents(events || [])
           const matchingEvents = sortedEvents.filter(e =>
             e.name.toLowerCase().includes(query.toLowerCase())
           )
           return (
             <div class={home}>
-              {hasValidJWT() ? null : <Button href="/login">Login</Button>}
               <Header
                 contents={
-                  <SearchInput
-                    onInput={this.queryChanged}
-                    placeholder="Search for events"
-                    type="search"
-                    value={query}
-                  />
+                  <div class={headerContents}>
+                    <SearchInput
+                      onInput={this.queryChanged}
+                      placeholder="Search for events"
+                      type="search"
+                      value={query}
+                    />
+                    {loggedIn ? (
+                      <Button onClick={this.logout}>Log Out</Button>
+                    ) : (
+                      <Button href="/login">Login</Button>
+                    )}
+                  </div>
                 }
               />
               {events === undefined ? (
