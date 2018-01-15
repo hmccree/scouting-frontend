@@ -21,19 +21,24 @@ const queryAPI = (
         : undefined
   })
 
-const getEvents = (): Promise<FRCEvent[]> =>
-  queryAPI('events').then(d => d.json())
+const get = <T extends {}>(url: string) => async (cb: (data: T) => any) => {
+  cb(JSON.parse(localStorage.getItem(url)) || undefined)
+  const data = await queryAPI(url).then(d => d.json())
+  cb(data)
+  localStorage.setItem(url, JSON.stringify(data))
+}
 
-const getEvent = (eventKey: string): Promise<FRCEvent> =>
-  queryAPI(`events/${eventKey}`).then(d => d.json())
+const getEvents = () => get<FRCEvent[]>('events')
 
-const getEventAnalysis = (eventKey: string): Promise<Analysis[]> =>
-  queryAPI(`analysis/${eventKey}`).then(d => d.json())
+const getEvent = (eventKey: string) => get<FRCEvent>(`events/${eventKey}`)
 
-const getMatch = (eventKey: string, matchKey: string): Promise<Match> =>
-  queryAPI(`events/${eventKey}/${eventKey}_${matchKey}`).then(d => d.json())
+const getEventAnalysis = (eventKey: string) =>
+  get<Analysis[]>(`analysis/${eventKey}`)
 
-const getSchema = (): Promise<Schema> => queryAPI('schema').then(d => d.json())
+const getMatch = (eventKey: string, matchKey: string) =>
+  get<Match>(`events/${eventKey}/${eventKey}_${matchKey}`)
+
+const getSchema = () => get<Schema>('schema')
 
 const authenticate = (credentials: {
   username: string
@@ -61,10 +66,7 @@ const getAllianceAnalysis = (
   eventKey: string,
   matchKey: string,
   color: string
-): Promise<Analysis[]> =>
-  queryAPI(`analysis/${eventKey}/${eventKey}_${matchKey}/${color}`).then(d =>
-    d.json()
-  )
+) => get<Analysis[]>(`analysis/${eventKey}/${eventKey}_${matchKey}/${color}`)
 
 export {
   getEvents,
