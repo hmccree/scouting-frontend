@@ -3,6 +3,7 @@ import { Router, Route } from 'preact-router'
 import { app } from './style.sss'
 
 import Home from '../../routes/home'
+import Leaderboard from '../../routes/leaderboard'
 import Login from '../../routes/login'
 import Event from '../../routes/event'
 import Match from '../../routes/match'
@@ -15,6 +16,7 @@ const App = () => (
   <div id={app}>
     <Router>
       <Route path="/" component={Home} />
+      <Route path="/leaderboard" component={Leaderboard} />
       <Route path="/login" component={Login} />
       <Route path="/events/:eventId" component={Event} />
       <Route path="/events/:eventId/analysis" component={EventAnalysis} />

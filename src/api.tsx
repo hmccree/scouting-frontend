@@ -40,6 +40,9 @@ const getMatch = (eventKey: string, matchKey: string) =>
 
 const getSchema = () => get<Schema>('schema')
 
+const getReporterStats = () =>
+  get<{ reporter: string; reports: Number }[]>('leaderboard')
+
 const authenticate = (credentials: {
   username: string
   password: string
@@ -75,6 +78,7 @@ export {
   getMatch,
   getAllianceAnalysis,
   getSchema,
+  getReporterStats,
   authenticate,
   submitReport
 }

@@ -70,6 +70,9 @@ const sortEvents = (events: FRCEvent[]) =>
     })
     .sort((a, b) => (a.distanceFromToday > b.distanceFromToday ? 1 : -1))
 
+const sortReporterStats = (stats: { reporter: string; reports: Number }[]) =>
+  stats.sort((a, b) => (a.reports < b.reports ? 1 : -1))
+
 const parseMatchKey = (name: string) => {
   const [, eventKey, matchKey] = name.match(/([^_]*)_(.*)/)
   return { eventKey, matchKey }
@@ -117,6 +120,7 @@ export {
   camelToTitle,
   toPercentage,
   toPrettyNumber,
+  sortReporterStats,
   eventTypeName,
   abbreviate,
   sortTeams
