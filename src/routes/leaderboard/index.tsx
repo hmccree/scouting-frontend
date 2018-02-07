@@ -1,4 +1,4 @@
-import { h } from 'preact'
+﻿import { h } from 'preact'
 import Resolver from '../../resolver'
 import Header from '../../components/header'
 import { getReporterStats } from '../../api'
@@ -26,7 +26,17 @@ const Leaderboard = () => (
               {sortedStats.map((stat, i) => (
                 <tr>
                   <td>
-                    {i == 0 ? '👑' : ''} {i == stats.length - 1 ? '💩' : ''}
+		    {(function () {
+		      var symbol;
+		      if (i == 0) {
+                        symbol = '👑'; 
+		      } else if (i == stats.length - 1) {
+                        symbol = '💩';
+		      } else {
+                        symbol = '';
+		      }
+                      return (symbol)
+		    })()}
                   </td>
                   <td>{stat.reporter}</td>
                   <td>{stat.reports}</td>
