@@ -2,6 +2,7 @@ import FRCEvent from './models/frc-event'
 import Match from './models/match'
 import Analysis from './models/analysis'
 import Schema from './models/schema'
+import UserInfo from './models/user-info'
 
 import { hasValidJWT, getJWT } from './utils'
 
@@ -15,10 +16,9 @@ const queryAPI = (
   fetch(`${endpoint}/${path}`, {
     method,
     body: JSON.stringify(body),
-    headers:
-      hasValidJWT() && method !== 'GET'
-        ? new Headers({ Authentication: `Bearer ${getJWT()}` })
-        : undefined
+    headers: hasValidJWT()
+      ? new Headers({ Authentication: `Bearer ${getJWT()}` })
+      : undefined
   })
 
 const get = <T extends {}>(url: string) => async (cb: (data: T) => any) => {
@@ -42,6 +42,8 @@ const getSchema = () => get<Schema>('schema')
 
 const getReporterStats = () =>
   get<{ reporter: string; reports: Number }[]>('leaderboard')
+
+const getUsers = () => get<UserInfo[]>('users')
 
 const authenticate = (credentials: {
   username: string
@@ -71,6 +73,14 @@ const getAllianceAnalysis = (
   color: string
 ) => get<Analysis[]>(`analysis/${eventKey}/${eventKey}_${matchKey}/${color}`)
 
+const deleteUser = (username: string) => queryAPI(`users/${username}`, 'DELETE')
+
+const updateUser = (username: string, user: UserInfo & { password?: string }) =>
+  queryAPI(`users/${username}`, 'PUT', user)
+
+const createUser = (user: UserInfo & { password: string }) =>
+  queryAPI(`users`, 'POST', user)
+
 export {
   getEvents,
   getEvent,
@@ -79,6 +89,10 @@ export {
   getAllianceAnalysis,
   getSchema,
   getReporterStats,
+  getUsers,
+  deleteUser,
   authenticate,
-  submitReport
+  submitReport,
+  updateUser,
+  createUser
 }
