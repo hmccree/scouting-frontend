@@ -105,7 +105,7 @@ export default () => (
                   {matchingEvents.map((e: FRCEvent) => (
                     <li key={e.key}>
                       <a href={`/events/${e.key}`}>
-                        {e.shortName}
+                        {e.shortName || e.name}
                         <div class={infoClass}>
                           {eventTypeName(e.eventType) ? (
                             <span class={this.eventTypeClass(e.eventType)}>

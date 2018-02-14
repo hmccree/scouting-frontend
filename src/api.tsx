@@ -21,11 +21,17 @@ const queryAPI = (
       : undefined
   })
 
-const get = <T extends {}>(url: string) => async (cb: (data: T) => any) => {
-  cb(JSON.parse(localStorage.getItem(url)) || undefined)
-  const data = await queryAPI(url).then(d => d.json())
-  cb(data)
-  localStorage.setItem(url, JSON.stringify(data))
+const get = <T extends {}>(url: string) => async (
+  cb: (err: Error | null, data: T | null) => any
+) => {
+  cb(null, JSON.parse(localStorage.getItem(url)) || undefined)
+  try {
+    const data = await queryAPI(url).then(d => d.json())
+    cb(null, data)
+    localStorage.setItem(url, JSON.stringify(data))
+  } catch (ex) {
+    cb(ex, undefined)
+  }
 }
 
 const getEvents = () => get<FRCEvent[]>('events')
@@ -39,6 +45,9 @@ const getMatch = (eventKey: string, matchKey: string) =>
   get<Match>(`events/${eventKey}/${eventKey}_${matchKey}`)
 
 const getSchema = () => get<Schema>('schema')
+
+const getReporterStats = () =>
+  get<{ reporter: string; reports: Number }[]>('leaderboard')
 
 const getUsers = () => get<UserInfo[]>('users')
 
@@ -85,6 +94,7 @@ export {
   getMatch,
   getAllianceAnalysis,
   getSchema,
+  getReporterStats,
   getUsers,
   deleteUser,
   authenticate,
