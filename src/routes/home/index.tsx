@@ -42,7 +42,7 @@ class NavigationItem {
   icon: string
 }
 
-interface NavigationState {}
+interface NavigationState { }
 
 interface NavigationProps {
   contents: Array<NavigationItem>
@@ -57,7 +57,7 @@ class NavigationDrawer extends Component<NavigationProps, NavigationState> {
 
   render(
     { contents, isOpen, toggleMenu }: NavigationProps,
-    {  }: NavigationState
+    { }: NavigationState
   ) {
     return (
       <div class={`${navigationDrawer} ${isOpen ? openClass : ''}`}>
@@ -66,11 +66,11 @@ class NavigationDrawer extends Component<NavigationProps, NavigationState> {
           <li class={navigationSubheader}>
             <span class={navigationIcon}>
               <span style="cursor: pointer;display: inline-block;vertical-align: top;" onClick={toggleMenu}>
-              <Icon icon="left" fill="currentColor" fill-opacity="0.56" />
+                <Icon icon="left" fill="currentColor" fill-opacity="0.56" />
               </span>
             </span>
           </li>
-          {contents.map(function(item) {
+          {contents.map(function (item) {
             return (
               <a href={item.link}>
                 <li>
@@ -145,7 +145,7 @@ export default () => (
           const matchingEvents = sortedEvents.filter(e =>
             e.name.toLowerCase().includes(query.toLowerCase())
           )
-          let navigationContents = new Array<NavigationItem>({label: "Leaderboard", link: "/leaderboard", icon: "menu"}, {label: "Admin", link: "/admin", icon: "menu"}, {label: "Credits", link: "/credits", icon: "menu"}, {label: "No Link", link: undefined, icon: "menu"})
+          let navigationContents = new Array<NavigationItem>({ label: "Leaderboard", link: "/leaderboard", icon: "menu" }, { label: "Admin", link: "/admin", icon: "menu" }, { label: "Credits", link: "/credits", icon: "menu" }, { label: "No Link", link: undefined, icon: "menu" })
           return (
             <div class={home}>
               <NavigationDrawer contents={navigationContents} isOpen={navigationMenuOpen} toggleMenu={this.toggleMenu} />
@@ -165,8 +165,8 @@ export default () => (
                     {loggedIn ? (
                       <Button onClick={this.logout}>Log Out</Button>
                     ) : (
-                      <Button href="/login">Login</Button>
-                    )}
+                        <Button href="/login">Login</Button>
+                      )}
                   </div>
                 }
               />
@@ -175,24 +175,24 @@ export default () => (
               ) : events.length === 0 ? (
                 'No matching events'
               ) : (
-                <List>
-                  {matchingEvents.map((e: FRCEvent) => (
-                    <li key={e.key}>
-                      <a href={`/events/${e.key}`}>
-                        {e.shortName || e.name}
-                        <div class={infoClass}>
-                          {eventTypeName(e.eventType) ? (
-                            <span class={this.eventTypeClass(e.eventType)}>
-                              {eventTypeName(e.eventType)}
-                            </span>
-                          ) : null}
-                          <DateDisplay date={e.parsedDate} />
-                        </div>
-                      </a>
-                    </li>
-                  ))}
-                </List>
-              )}
+                    <List>
+                      {matchingEvents.map((e: FRCEvent) => (
+                        <li key={e.key}>
+                          <a href={`/events/${e.key}`}>
+                            {e.shortName || e.name}
+                            <div class={infoClass}>
+                              {eventTypeName(e.eventType) ? (
+                                <span class={this.eventTypeClass(e.eventType)}>
+                                  {eventTypeName(e.eventType)}
+                                </span>
+                              ) : null}
+                              <DateDisplay date={e.parsedDate} />
+                            </div>
+                          </a>
+                        </li>
+                      ))}
+                    </List>
+                  )}
             </div>
           )
         }

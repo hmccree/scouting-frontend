@@ -21,7 +21,7 @@ class Header extends Component<HeaderProps, HeaderState> {
     this.state = { isOpen: false }
   }
 
-  render({ title, back, contents }: HeaderProps, {  }: HeaderState) {
+  render({ title, back, contents }: HeaderProps, { }: HeaderState) {
     return (
       <header class={header}>
         {back && (
