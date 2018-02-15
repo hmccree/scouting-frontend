@@ -17,7 +17,7 @@
   grid-template-columns: 1fr minmax(auto, 500px) 1fr
 
   @media (width < 670px)
-    grid-template-columns: 0 1fr auto
+    grid-template-columns: auto 1fr auto
     grid-column-gap: 10px
 
     & > input
@@ -75,3 +75,74 @@
 
 .adminPanel
   max-width: 10px
+
+.navigationDrawerButtonColumn
+  display: flex
+  align-items: center
+  padding: 0 0 0 8px
+
+#navigationDrawerButton
+  outline: none
+  border-radius: 50%
+  transition: background-color 0.3s ease
+  cursor: pointer
+  display: inline-block
+
+  &:hover, &:focus
+    background: rgba(#fff, 0.1)
+
+  &:active
+    background: rgba(#fff, 0.2)
+
+  & > svg
+    display: block
+    margin: 8px
+
+.navigationDrawer
+  visibility: hidden
+  opacity: 0
+
+.navigationDrawerContent, .navigationDrawerBackground
+  position: fixed
+  top: 0
+  left: 0
+  z-index: 100
+
+.navigationDrawerBackground
+  width: 100%
+  height: 100%
+  background-color: rgba(#000, 0.2)
+
+.navigationDrawerContent
+  width: 320px
+  height: 100%
+  background-color: white
+  box-shadow: #000 0px 0px 15px
+  color: black
+
+  & > a
+    text-decoration: none
+    color: inherit
+
+  & li
+    width: 100%
+    height: 48px
+    padding: 0 16px
+    list-style-type: none
+    align-items: center
+    display: flex
+
+    & > *
+      display: inline-block
+
+    & > .icon
+      width: 56px
+
+  & li.subheader
+    background: #222
+    height: 56px
+    color: #FFF
+
+.open
+  visibility: visible
+  opacity: 1

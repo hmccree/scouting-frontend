@@ -23,8 +23,70 @@ import {
   dcmp,
   cmp,
   off,
-  pre
+  pre,
+  navigationDrawerButtonColumn,
+  navigationDrawerButton,
+  navigationDrawer,
+  navigationDrawerBackground,
+  navigationDrawerContent,
+  subheader as navigationSubheader,
+  icon as navigationIcon,
+  open as openClass
 } from './style.sss'
+import Icon from '../../components/icon'
+
+class NavigationItem {
+  label: string
+  link: string
+  // The Icon name, not an SVG string
+  icon: string
+}
+
+interface NavigationState {}
+
+interface NavigationProps {
+  contents: Array<NavigationItem>
+  isOpen: boolean
+  toggleMenu: () => void
+}
+
+class NavigationDrawer extends Component<NavigationProps, NavigationState> {
+  constructor() {
+    super()
+  }
+
+  render(
+    { contents, isOpen, toggleMenu }: NavigationProps,
+    {  }: NavigationState
+  ) {
+    return (
+      <div class={`${navigationDrawer} ${isOpen ? openClass : ''}`}>
+        <div class={navigationDrawerBackground} onClick={toggleMenu} />
+        <div class={navigationDrawerContent}>
+          <li class={navigationSubheader}>
+            <span class={navigationIcon}>
+              <span style="cursor: pointer;display: inline-block;vertical-align: top;" onClick={toggleMenu}>
+              <Icon icon="left" fill="currentColor" fill-opacity="0.56" />
+              </span>
+            </span>
+          </li>
+          {contents.map(function(item) {
+            return (
+              <a href={item.link}>
+                <li>
+                  <span class={navigationIcon}>
+                    <Icon icon={item.icon} fill="currentColor" fill-opacity="0.56" />
+                  </span>
+                  <span>{item.label}</span>
+                </li>
+              </a>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+}
 
 interface HomeProps {
   events: FRCEvent[]
@@ -33,6 +95,7 @@ interface HomeProps {
 interface HomeState {
   query: string
   loggedIn: boolean
+  navigationMenuOpen: boolean
 }
 
 const eventTypeClassMap = new Map<Number, string>([
@@ -53,7 +116,7 @@ export default () => (
       class Home extends Component<HomeProps, HomeState> {
         constructor() {
           super()
-          this.state = { query: '', loggedIn: false }
+          this.state = { query: '', loggedIn: false, navigationMenuOpen: false }
         }
 
         componentWillMount() {
@@ -73,16 +136,27 @@ export default () => (
           return eventTypeClassMap.get(eventType)
         }
 
-        render({ events }: HomeProps, { query, loggedIn }: HomeState) {
+        toggleMenu = () => {
+          this.setState(({ navigationMenuOpen }: HomeState) => ({ navigationMenuOpen: !navigationMenuOpen }))
+        }
+
+        render({ events }: HomeProps, { query, loggedIn, navigationMenuOpen }: HomeState) {
           const sortedEvents = sortEvents(events || [])
           const matchingEvents = sortedEvents.filter(e =>
             e.name.toLowerCase().includes(query.toLowerCase())
           )
+          let navigationContents = new Array<NavigationItem>({label: "Leaderboard", link: "/leaderboard", icon: "menu"}, {label: "Admin", link: "/admin", icon: "menu"}, {label: "Credits", link: "/credits", icon: "menu"}, {label: "No Link", link: undefined, icon: "menu"})
           return (
             <div class={home}>
+              <NavigationDrawer contents={navigationContents} isOpen={navigationMenuOpen} toggleMenu={this.toggleMenu} />
               <Header
                 contents={
                   <div class={headerContents}>
+                    <span class={navigationDrawerButtonColumn}>
+                      <span id={navigationDrawerButton} onClick={this.toggleMenu}>
+                        <Icon icon="menu" />
+                      </span>
+                    </span>
                     <SearchInput
                       onInput={this.queryChanged}
                       placeholder="Search for events"
