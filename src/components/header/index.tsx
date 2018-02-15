@@ -1,13 +1,8 @@
 import { h, Component } from 'preact'
-import {
-  header,
-  back as backClass
-} from './style.sss'
+import { header, back as backClass } from './style.sss'
 import Icon from '../icon'
 
-interface HeaderState {
-
-}
+interface HeaderState {}
 
 interface HeaderProps {
   title?: string
@@ -21,7 +16,7 @@ class Header extends Component<HeaderProps, HeaderState> {
     this.state = { isOpen: false }
   }
 
-  render({ title, back, contents }: HeaderProps, { }: HeaderState) {
+  render({ title, back, contents }: HeaderProps, {  }: HeaderState) {
     return (
       <header class={header}>
         {back && (
