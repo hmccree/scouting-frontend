@@ -7,6 +7,7 @@ interface ButtonProps {
   type?: 'submit' | null
   value?: string
   onClick?: () => any
+  disabled?: boolean
   class?: string
 }
 
@@ -16,6 +17,7 @@ const Button = ({
   type,
   value,
   onClick,
+  disabled,
   class: className
 }: ButtonProps) =>
   h(href ? 'a' : type === 'submit' ? 'input' : 'button', {
@@ -24,7 +26,8 @@ const Button = ({
     href,
     type,
     value,
-    onClick
+    onClick,
+    disabled
   })
 
 export default Button
