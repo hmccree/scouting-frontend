@@ -26,7 +26,6 @@ import {
   pre,
   navigationDrawerButtonColumn,
   navigationDrawerButton,
-  navigationDrawer,
   navigationDrawerBackground,
   navigationDrawerContent,
   subheader as navigationSubheader,
@@ -60,15 +59,12 @@ class NavigationDrawer extends Component<NavigationProps, NavigationState> {
     {  }: NavigationState
   ) {
     return (
-      <div class={`${navigationDrawer} ${isOpen ? openClass : ''}`}>
+      <div class={isOpen ? openClass : ''}>
         <div class={navigationDrawerBackground} onClick={toggleMenu} />
         <div class={navigationDrawerContent}>
           <li class={navigationSubheader}>
             <span class={navigationIcon}>
-              <span
-                style="cursor: pointer;display: inline-block;vertical-align: top;"
-                onClick={toggleMenu}
-              >
+              <span onClick={toggleMenu}>
                 <Icon icon="left" fill="currentColor" fill-opacity="0.56" />
               </span>
             </span>
@@ -158,10 +154,9 @@ export default () => (
             e.name.toLowerCase().includes(query.toLowerCase())
           )
           let navigationContents = new Array<NavigationItem>(
-            { label: 'Leaderboard', link: '/leaderboard', icon: 'menu' },
-            { label: 'Admin', link: '/admin', icon: 'menu' },
-            { label: 'Credits', link: '/credits', icon: 'menu' },
-            { label: 'No Link', link: undefined, icon: 'menu' }
+            { label: 'Leaderboard', link: '/leaderboard', icon: 'trophy' },
+            { label: 'Admin', link: '/admin', icon: 'useredit' },
+            { label: 'Credits', link: '/credits', icon: 'info' }
           )
           return (
             <div class={home}>
