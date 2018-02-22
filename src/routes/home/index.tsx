@@ -153,11 +153,19 @@ export default () => (
           const matchingEvents = sortedEvents.filter(e =>
             e.name.toLowerCase().includes(query.toLowerCase())
           )
-          let navigationContents = new Array<NavigationItem>(
+          let navigationContents = [
             { label: 'Leaderboard', link: '/leaderboard', icon: 'trophy' },
-            { label: 'Admin', link: '/admin', icon: 'useredit' },
             { label: 'Credits', link: '/credits', icon: 'info' }
-          )
+          ]
+
+          if (hasValidJWT() && getUserInfo().isAdmin) {
+            navigationContents.push({
+              label: 'Admin',
+              link: '/admin',
+              icon: 'useredit'
+            })
+          }
+
           return (
             <div class={home}>
               <NavigationDrawer
