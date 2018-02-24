@@ -50,9 +50,9 @@ const Resolver = <T extends {}>(props: ResolverProps<T>) =>
         return (
           <div class={wrapperClass}>
             {error !== null ? (
-              <p class={errClass}>
+              <div class={errClass}>
                 Network Connection Problem: {error.toString()}
-              </p>
+              </div>
             ) : null}
             <Render {...data} />
           </div>
