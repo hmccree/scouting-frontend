@@ -36,7 +36,31 @@ const get = <T extends {}>(url: string) => async (
 
 const getEvents = () => get<FRCEvent[]>('events')
 
-const getEvent = (eventKey: string) => get<FRCEvent>(`events/${eventKey}`)
+const getEvent = (eventKey: string) => async (
+  cb: (err: Error | null, data: FRCEvent | null) => any
+) => {
+  get<FRCEvent>(`events/${eventKey}`)((err: Error, data: FRCEvent) => {
+    if (err) {
+      cb(err, data)
+    } else {
+      if (data !== undefined && data.matches !== undefined) {
+        data.matches = data.matches
+          .map(value => {
+            if (!(value.time instanceof Date)) {
+              value.time = new Date(value.actualTime || value.predictedTime)
+            }
+            return value
+          })
+          .sort(
+            (a, b) =>
+              (a.time === null ? 0 : a.time.getTime()) -
+              (b.time === null ? 0 : b.time.getTime())
+          )
+      }
+      cb(null, data)
+    }
+  })
+}
 
 const getEventAnalysis = (eventKey: string) =>
   get<Analysis[]>(`analysis/${eventKey}`)
