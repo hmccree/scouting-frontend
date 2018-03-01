@@ -111,38 +111,47 @@ const distanceBetween = (
   return earthRadius * angularDistance
 }
 
+const getCoords = (cb: (pos: { lat: number; long: number }) => any) => {
+  const cachedCoords = localStorage.getItem('coords')
+  if (cachedCoords !== null) {
+    cb(JSON.parse(cachedCoords))
+  }
+
+  navigator.geolocation.getCurrentPosition(pos => {
+    const coords = { lat: pos.coords.latitude, long: pos.coords.longitude }
+    localStorage.setItem('coords', JSON.stringify(coords))
+    cb(coords)
+  })
+}
+
 const today = Number(new Date())
 
-const sortEvents = (events: FRCEvent[], coords?: Coordinates) =>
+const sortEvents = (
+  events: FRCEvent[],
+  coords?: { lat: number; long: number }
+) =>
   events !== undefined && events !== null
     ? events
         .map(e => {
           e.parsedDate = new Date(e.date)
+          e.parsedEndDate = new Date(e.endDate)
           e.distanceFromToday = Math.round(
-            Math.abs(Number(e.parsedDate) - today) / 1000 / 60 / 60 / 24 / 7
+            (Number(e.parsedEndDate) - today) / 1000 / 60 / 60 / 24 / 7
           )
 
           if (coords !== undefined) {
-            e.distance = distanceBetween(
-              coords.latitude,
-              coords.longitude,
-              e.lat,
-              e.long
-            )
+            e.distance = distanceBetween(coords.lat, coords.long, e.lat, e.long)
           }
 
           return e
         })
         .sort((a, b) => {
-          if (a.distanceFromToday > b.distanceFromToday) {
-            return 1
-          } else if (b.distanceFromToday > a.distanceFromToday) {
-            return -1
-          } else if (a.distance > b.distance) {
-            return 1
+          if (a.distanceFromToday === b.distanceFromToday) {
+            return a.distance > b.distance ? 1 : -1
+          } else if (a.distanceFromToday > b.distanceFromToday) {
+            return a.distanceFromToday >= 0 ? 1 : -1
           }
-
-          return -1
+          return a.distanceFromToday >= 0 ? -1 : 1
         })
     : []
 
@@ -203,5 +212,6 @@ export {
   sortSchemaKeys,
   eventTypeName,
   abbreviate,
-  sortTeams
+  sortTeams,
+  getCoords
 }
