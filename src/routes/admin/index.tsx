@@ -131,6 +131,15 @@ class AdminPanel extends Component<any, AdminPanelState> {
                             1200
                           )
 
+                          var re = /[^A-Za-z0-9 ]/
+                          if (
+                            !user.edit.username ||
+                            re.exec(user.edit.username)
+                          ) {
+                            elem.classList.add(failed)
+                            return
+                          }
+
                           try {
                             if (user.username != '') {
                               updateUser(user.username, {
@@ -156,12 +165,13 @@ class AdminPanel extends Component<any, AdminPanelState> {
                     <td class={deleteClass}>
                       <Button
                         onClick={() => {
-                          deleteUser(user.username).then(() =>
-                            this.setState((state: AdminPanelState) => {
-                              state.users.splice(i, 1)
-                              return state
-                            })
-                          )
+                          if (user.username) {
+                            deleteUser(user.username)
+                          }
+
+                          this.setState((state: AdminPanelState) => {
+                            state.users.splice(i, 1)
+                          })
                         }}
                       >
                         <Icon icon="delete" />
