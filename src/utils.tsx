@@ -74,20 +74,12 @@ const sortSchemaKeys = (keys: string[]): SortedSchemaKeys =>
     { auto: [], teleop: [], general: [] }
   )
 
-const formatMatchId = (matchId: string): string => {
-  const id = matchId.toUpperCase()
-  const endNumber = /[\D]*([\d]*)$/.exec(id)[1]
-  const group = /^[\D]*([\d]*)/.exec(id)[1]
-  if (id.startsWith('QM')) {
-    return `Qual ${endNumber}`
-  } else if (id.startsWith('QF')) {
-    return `Quarter Final ${group} Match ${endNumber}`
-  } else if (id.startsWith('SF')) {
-    return `Semi Final ${group} Match ${endNumber}`
-  } else if (id.startsWith('F')) {
-    return `Final ${group} Match ${endNumber}`
+const formatMatchKey = (matchId: string): string => {
+  const { type, number, group } = parseMatchKey(matchId.toUpperCase())
+  if (type === 'q') {
+    return `Qual ${number}`
   }
-  return id
+  return `${type.toUpperCase()}${group} M${number}`
 }
 
 const toRadians = (deg: number) => deg * (Math.PI / 180)
@@ -164,9 +156,26 @@ const sortReporterStats = (stats: { reporter: string; reports: Number }[]) =>
     ? stats.sort((a, b) => (a.reports < b.reports ? 1 : -1))
     : []
 
-const parseMatchKey = (name: string) => {
-  const [, eventKey, matchKey] = name.match(/([^_]*)_(.*)/)
-  return { eventKey, matchKey }
+const parseMatchKey = (key: string) => {
+  let eventKey, matchKey
+  if (key.includes('_')) {
+    const [, e, m] = key.match(/([^_]*)_(.*)/)
+    eventKey = e.toLowerCase()
+    matchKey = m.toLowerCase()
+  } else {
+    eventKey = null
+    matchKey = key.toLowerCase()
+  }
+  const number = Number.parseInt(/.*m([\d]*)$/.exec(matchKey)[1])
+  const g = /^[\D]*([\d]*)m/.exec(matchKey)[1]
+  const type = /(^[\D]*).*m.*$/.exec(matchKey)[1]
+  return {
+    eventKey,
+    matchKey,
+    group: g === '' ? null : Number.parseInt(g),
+    number,
+    type
+  }
 }
 
 const camelToTitle = (text: string) => {
@@ -177,6 +186,9 @@ const camelToTitle = (text: string) => {
 const toPercentage = (val: number) => Math.round(val * 100) + '%'
 
 const toPrettyNumber = (val: number) => Math.round(val * 10) / 10
+
+const getNumber = (val: number | boolean) =>
+  typeof val === 'number' ? val : val ? 1 : 0
 
 const eventTypeNames = new Map<number, string>([
   [0, ''],
@@ -190,6 +202,43 @@ const eventTypeNames = new Map<number, string>([
   [100, 'Pre'],
   [-1, '']
 ])
+
+const lerper = (
+  minIn: number,
+  maxIn: number,
+  minOut: number,
+  maxOut: number
+) => (val: number): number => lerp(val, minIn, maxIn, minOut, maxOut)
+
+const lerp = (
+  val: number,
+  minIn: number,
+  maxIn: number,
+  minOut: number,
+  maxOut: number
+): number => (val - minIn) / (maxIn - minIn) * (maxOut - minOut) + minOut
+
+const compareMatchKey = (a: string, b: string) => {
+  if (a == b) {
+    return 0
+  }
+
+  const aParsed = parseMatchKey(a)
+  const bParsed = parseMatchKey(b)
+
+  if (aParsed.type === bParsed.type) {
+    if (aParsed.group === bParsed.group) {
+      return aParsed.number < bParsed.number ? -1 : 1
+    }
+    return aParsed.group < bParsed.group ? -1 : 1
+  }
+  return compareMatchType(aParsed.type, bParsed.type)
+}
+
+const order = ['qm', 'ef', 'qf', 'sf', 'f']
+
+const compareMatchType = (a: string, b: string) =>
+  order.indexOf(a) > order.indexOf(b) ? 1 : -1
 
 const eventTypeName = (eventType: number) => eventTypeNames.get(eventType)
 
@@ -206,7 +255,7 @@ export {
   getJWT,
   getUserInfo,
   formatTeamNumber,
-  formatMatchId,
+  formatMatchKey,
   sortEvents,
   formatDate,
   formatTime,
@@ -220,5 +269,9 @@ export {
   abbreviate,
   sortTeams,
   getCoords,
-  capitalize
+  capitalize,
+  getNumber,
+  lerp,
+  lerper,
+  compareMatchKey
 }
