@@ -3,8 +3,8 @@ import Analysis from '../../models/analysis'
 import Schema from '../../models/schema'
 import {
   camelToTitle,
+  compareTeams,
   formatTeamNumber,
-  sortTeams,
   toPercentage,
   toPrettyNumber
 } from '../../utils'
@@ -73,7 +73,7 @@ class Table extends Component<TableProps, TableState> {
             .sort((a, b) => {
               const v =
                 sortBy === 'teamNumber'
-                  ? sortTeams(a.team, b.team) ? 1 : -1
+                  ? compareTeams(a.team, b.team)
                   : a.stats[sortBy] > b.stats[sortBy] ? 1 : -1
               return reversed ? -v : v
             })

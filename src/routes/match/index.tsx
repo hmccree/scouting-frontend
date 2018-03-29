@@ -39,7 +39,7 @@ const Alliance = ({ baseUrl, color, alliance, score }: AllianceProps) => (
     class={`${allianceClass} ${color === 'red' ? redClass : blueClass}`}
   >
     {alliance.map(team => (
-      <RobotImage team={formatTeamNumber(team)} color={color} key={team} />
+      <RobotImage team={formatTeamNumber(team)} color={color} />
     ))}
     <div class={scoreClass}>
       <h2>Score</h2>
@@ -64,11 +64,7 @@ const Match = ({ eventId, matchId }: { eventId: string; matchId: string }) => (
         previousMatch && parseMatchKey(previousMatch.key).matchKey
       return (
         <div class={matchClass}>
-          <Header
-            title={`${matchId.toUpperCase()} - ${eventName}`}
-            back={`/events/${eventId}`}
-          />
-
+          <Header title={`${matchId.toUpperCase()} - ${eventName}`} />
           <div class={matchNameClass}>
             <h2>{formatMatchKey(matchId)}</h2>
           </div>

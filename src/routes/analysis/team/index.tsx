@@ -1,5 +1,6 @@
 import { h } from 'preact'
 import { getEvent, getSchema, getTeamStats } from '../../../api'
+import Button from '../../../components/button'
 import Chart from '../../../components/chart'
 import Header from '../../../components/header'
 import Spinner from '../../../components/spinner'
@@ -24,7 +25,6 @@ const TeamAnalysis = ({ eventId, team }: { eventId: string; team: string }) => (
       return (
         <div class={teamAnalysis}>
           <Header
-            back={`/events/${eventId}/analysis`}
             title={`${team} - ${(event && event.shortName) || eventId}`}
           />
 
@@ -32,6 +32,10 @@ const TeamAnalysis = ({ eventId, team }: { eventId: string; team: string }) => (
             <Spinner />
           ) : (
             <div>
+              <Button href={`/events/${eventId}/compare/${team}`}>
+                Compare
+              </Button>
+
               {Object.keys(schema).map(key => (
                 <div>
                   <h1>{camelToTitle(key)}</h1>

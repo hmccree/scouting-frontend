@@ -5,14 +5,15 @@ import { back as backClass, header } from './style.sss'
 
 interface HeaderProps {
   title?: string
-  back?: string
   contents?: any
   verify?: boolean
+  noBack?: boolean
+  back?: () => any
 }
 
-const Header = ({ title, back, contents, verify }: HeaderProps) => (
+const Header = ({ title, contents, verify, back, noBack }: HeaderProps) => (
   <header class={header}>
-    {back && (
+    {noBack || (
       <a
         class={backClass}
         onClick={e => {
@@ -20,15 +21,24 @@ const Header = ({ title, back, contents, verify }: HeaderProps) => (
             e.stopImmediatePropagation()
             e.preventDefault()
             if (confirm('Are you sure you want to leave?')) {
-              route(back)
+              if (back !== undefined) {
+                back()
+              }
+              window.history.back()
             }
+          } else {
+            if (back !== undefined) {
+              back()
+            }
+            window.history.back()
           }
         }}
-        href={back}
+        href="#"
       >
         <Icon icon="left" />
       </a>
     )}
+
     {contents || <h1>{title}</h1>}
   </header>
 )

@@ -15,12 +15,12 @@ const Leaderboard = () => (
     render={({ stats }) => {
       const sortedStats = sortReporterStats(stats) || []
       return (
-        <div>
-          <Header title="Leaderboard" back="/" />
+        <div class={leaderboardClass}>
+          <Header title="Leaderboard" />
           {!sortedStats ? (
             <Spinner />
           ) : (
-            <table class={leaderboardClass}>
+            <table>
               <tr>
                 <th />
                 <th>Reporter</th>
