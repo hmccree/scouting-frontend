@@ -52,9 +52,9 @@ const Compare = ({
         return <Spinner />
       }
 
-      const firstTeam = formatTeamNumber(teams[0])
+      const firstTeam = formatTeamNumber(teams !== null ? teams[0] : '')
 
-      if (team1 === '' || team2 === '') {
+      if (teams !== null && (team1 === '' || team2 === '')) {
         if (team1 === '') {
           team1 = firstTeam
         }
