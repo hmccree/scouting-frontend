@@ -8,7 +8,12 @@ import {
   toPercentage,
   toPrettyNumber
 } from '../../utils'
-import { note, statColumn, table } from './style.sss'
+import {
+  note,
+  selectedTeam as selectedTeamClass,
+  statColumn,
+  table
+} from './style.sss'
 
 interface TableProps {
   analyses: Analysis[]
@@ -20,6 +25,7 @@ interface TableProps {
 interface TableState {
   sortBy: string
   reversed: boolean
+  selectedTeam: string
 }
 
 class Table extends Component<TableProps, TableState> {
@@ -27,7 +33,8 @@ class Table extends Component<TableProps, TableState> {
     super()
     this.state = {
       sortBy: 'teamNumber',
-      reversed: false
+      reversed: false,
+      selectedTeam: ''
     }
   }
 
@@ -39,7 +46,7 @@ class Table extends Component<TableProps, TableState> {
 
   render(
     { analyses, schema, eventKey, back }: TableProps,
-    { sortBy, reversed }: TableState
+    { sortBy, reversed, selectedTeam }: TableState
   ) {
     return (
       <div class={table}>
@@ -72,14 +79,23 @@ class Table extends Component<TableProps, TableState> {
           </tr>
           {analyses
             .sort((a, b) => {
-              const v =
-                sortBy === 'teamNumber'
-                  ? compareTeams(a.team, b.team)
-                  : a.stats[sortBy] > b.stats[sortBy] ? 1 : -1
+              let v: number
+              if (
+                sortBy === 'teamNumber' ||
+                a.stats[sortBy] === b.stats[sortBy]
+              ) {
+                v = compareTeams(a.team, b.team)
+              } else {
+                v = a.stats[sortBy] > b.stats[sortBy] ? 1 : -1
+              }
               return reversed ? -v : v
             })
             .map(analysis => (
-              <tr key={analysis.team}>
+              <tr
+                key={analysis.team}
+                class={analysis.team === selectedTeam ? selectedTeamClass : ''}
+                onClick={() => this.setState({ selectedTeam: analysis.team })}
+              >
                 <td key="teamNumber">
                   <a
                     href={`/events/${eventKey}/team/${formatTeamNumber(
