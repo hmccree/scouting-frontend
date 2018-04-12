@@ -16,14 +16,14 @@ import {
 import {
   alliance as allianceClass,
   blue as blueClass,
+  icons,
   match as matchClass,
   matchName as matchNameClass,
   matchTime as matchTimeClass,
   navbar,
   navigation as navigationClass,
   red as redClass,
-  score as scoreClass,
-  icons
+  score as scoreClass
 } from './style.sss'
 
 interface AllianceProps {
