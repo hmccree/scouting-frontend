@@ -55,14 +55,15 @@ const Match = ({ eventId, matchId }: { eventId: string; matchId: string }) => (
     render={({ match, event }) => {
       const url = `/events/${eventId}/${matchId}`
       const eventName = (event && event.shortName) || eventId
-      const currentMatchIndex = event.matches.findIndex(
-        ({ key }) => key === `${eventId}_${matchId}`
-      )
-      const nextMatch = event.matches[currentMatchIndex + 1]
-      const previousMatch = event.matches[currentMatchIndex - 1]
-      const nextMatchKey = nextMatch && parseMatchKey(nextMatch.key).matchKey
-      const previousMatchKey =
-        previousMatch && parseMatchKey(previousMatch.key).matchKey
+      const currentMatchIndex =
+        event && event.matches
+          ? event.matches.findIndex(
+              ({ key }) => key === `${eventId}_${matchId}`
+            )
+          : 0
+      const matches = event && event.matches
+      const previousMatch = matches && matches[currentMatchIndex - 1]
+      const nextMatch = matches && matches[currentMatchIndex + 1]
       return (
         <div class={matchClass}>
           <Header
@@ -98,11 +99,13 @@ const Match = ({ eventId, matchId }: { eventId: string; matchId: string }) => (
           )}
           {!match && <Spinner />}
           <div class={navbar}>
-            {previousMatchKey !== undefined ? (
+            {previousMatch !== undefined ? (
               <a
                 class={navigationClass}
-                href={`/events/${eventId}/${previousMatchKey}`}
-                data-disabled={previousMatchKey === undefined}
+                href={`/events/${eventId}/${
+                  parseMatchKey(previousMatch.key).matchKey
+                }`}
+                data-disabled={previousMatch === undefined}
               >
                 <Icon icon="left" />
               </a>
@@ -129,11 +132,13 @@ const Match = ({ eventId, matchId }: { eventId: string; matchId: string }) => (
                 ) : null}
               </div>
             ) : null}
-            {nextMatchKey !== undefined ? (
+            {nextMatch !== undefined ? (
               <a
                 class={navigationClass}
-                href={`/events/${eventId}/${nextMatchKey}`}
-                data-disabled={nextMatchKey === undefined}
+                href={`/events/${eventId}/${
+                  parseMatchKey(nextMatch.key).matchKey
+                }`}
+                data-disabled={nextMatch === undefined}
               >
                 <Icon icon="right" />
               </a>
