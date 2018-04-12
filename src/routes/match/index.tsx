@@ -110,13 +110,15 @@ const Match = ({ eventId, matchId }: { eventId: string; matchId: string }) => (
                 <Icon icon="left" />
               </a>
             ) : (
-              <a class={navigationClass}>
-                <Icon icon="left" fill="gray" />
-              </a>
+              <div />
             )}
             {match !== undefined ? (
               <div class={icons}>
-                <a href={`/events/${eventId}/${matchId}/print`} target="_blank">
+                <a
+                  onClick={() =>
+                    window.open(`/events/${eventId}/${matchId}/print`)
+                  }
+                >
                   <Icon icon="print" />
                 </a>
 
@@ -144,9 +146,7 @@ const Match = ({ eventId, matchId }: { eventId: string; matchId: string }) => (
                 <Icon icon="right" />
               </a>
             ) : (
-              <a class={navigationClass}>
-                <Icon icon="right" fill="gray" />
-              </a>
+              <div />
             )}
           </div>
         </div>
