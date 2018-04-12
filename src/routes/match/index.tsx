@@ -21,9 +21,9 @@ import {
   matchTime as matchTimeClass,
   navbar,
   navigation as navigationClass,
-  print as printClass,
   red as redClass,
-  score as scoreClass
+  score as scoreClass,
+  icons
 } from './style.sss'
 
 interface AllianceProps {
@@ -109,12 +109,23 @@ const Match = ({ eventId, matchId }: { eventId: string; matchId: string }) => (
             ) : (
               <div />
             )}
-            <a
-              class={printClass}
-              onClick={() => window.open(`/events/${eventId}/${matchId}/print`)}
-            >
-              <Icon icon="print" />
-            </a>
+            <div class={icons}>
+              <a
+                onClick={() =>
+                  window.open(`/events/${eventId}/${matchId}/print`)
+                }
+              >
+                <Icon icon="print" />
+              </a>
+              <a href={`https://www.thebluealliance.com/match/${match.key}`}>
+                <Icon icon="tba" />
+              </a>
+              {match.youtubeURL ? (
+                <a href={match.youtubeURL}>
+                  <Icon icon="youtube" />
+                </a>
+              ) : null}
+            </div>
             {nextMatchKey !== undefined ? (
               <a
                 class={navigationClass}
