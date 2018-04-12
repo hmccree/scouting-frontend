@@ -104,7 +104,7 @@ const Match = ({ eventId, matchId }: { eventId: string; matchId: string }) => (
                 href={`/events/${eventId}/${previousMatchKey}`}
                 data-disabled={previousMatchKey === undefined}
               >
-                <Icon icon="left" /> Previous Match
+                <Icon icon="left" />
               </a>
             ) : (
               <div />
@@ -132,7 +132,7 @@ const Match = ({ eventId, matchId }: { eventId: string; matchId: string }) => (
                 href={`/events/${eventId}/${nextMatchKey}`}
                 data-disabled={nextMatchKey === undefined}
               >
-                Next Match <Icon icon="right" />
+                <Icon icon="right" />
               </a>
             ) : (
               <div />
