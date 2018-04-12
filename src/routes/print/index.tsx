@@ -6,8 +6,8 @@ import Resolver from '../../resolver'
 import {
   camelToTitle,
   formatMatchKey,
-  formatTeamNumber,
   toPercentage,
+  formatTeamNumber,
   toPrettyNumber
 } from '../../utils'
 import {
