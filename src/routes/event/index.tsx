@@ -3,11 +3,11 @@ import { getEvent } from '../../api'
 import Button from '../../components/button'
 import DateDisplay from '../../components/date-display'
 import Header from '../../components/header'
+import Icon from '../../components/icon'
 import List from '../../components/list'
 import Spinner from '../../components/spinner'
 import FRCEvent from '../../models/frc-event'
 import Resolver from '../../resolver'
-import Icon from '../../components/icon'
 import {
   compareMatchKey,
   formatMatchKey,
