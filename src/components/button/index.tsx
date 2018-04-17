@@ -4,7 +4,7 @@ import { button } from './style.sss'
 interface ButtonProps {
   children?: JSX.Element[]
   href?: string
-  type?: 'submit' | null
+  type?: string
   value?: string
   onClick?: () => any
   disabled?: boolean
@@ -20,7 +20,7 @@ const Button = ({
   disabled,
   class: className
 }: ButtonProps) =>
-  h(href ? 'a' : type === 'submit' ? 'input' : 'button', {
+  h(href ? 'a' : 'button', {
     class: `${button} ${className || ''}`,
     children,
     href,
