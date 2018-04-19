@@ -1,5 +1,4 @@
 const cacheName = '2'
-const staticAssets = ['/', '/main.js', '/main.css']
 const ignore = ['/browser-sync/']
 
 const getPath = (url: string) => url.replace(self.location.origin, '')
@@ -20,10 +19,6 @@ interface FetchEvent extends ExtendableEvent {
 interface InstallEvent extends ExtendableEvent {
   activeWorker: ServiceWorker
 }
-
-self.addEventListener('install', (e: InstallEvent) => {
-  e.waitUntil(caches.open(cacheName).then(cache => cache.addAll(staticAssets)))
-})
 
 self.addEventListener('fetch', (event: FetchEvent) => {
   const { request } = event

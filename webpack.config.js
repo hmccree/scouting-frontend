@@ -87,8 +87,7 @@ module.exports = [
       new HtmlWebpackPlugin({
         title: 'Peregrine',
         minify: { collapseWhitespace: true },
-        template: 'src/index.html',
-        hash: true
+        template: 'src/index.html'
       }),
       new MiniCssExtractPlugin({
         filename: '[name].css',
