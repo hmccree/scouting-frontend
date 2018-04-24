@@ -94,7 +94,8 @@ module.exports = [
         chunkFilename: '[id].css'
       }),
       new ForkTsCheckerWebpackPlugin({
-        tslint: true
+        tslint: true,
+        workers: 1
       }),
       new CopyWebpackPlugin([
         { from: path.join(root, '_redirects') },
