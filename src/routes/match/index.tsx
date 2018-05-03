@@ -110,25 +110,22 @@ const Match = ({ eventId, matchId }: { eventId: string; matchId: string }) => (
             >
               <Icon icon="left" />
             </a>
-            {match !== null ? (
-              <div class={icons}>
-                <a target="_blank" href={`/events/${eventId}/${matchId}/print`}>
-                  <Icon icon="print" />
+            <div class={icons}>
+              <a target="_blank" href={`/events/${eventId}/${matchId}/print`}>
+                <Icon icon="print" />
+              </a>
+              <a
+                target="_blank"
+                href={`https://www.thebluealliance.com/match/${matchId}`}
+              >
+                <Icon icon="tba" />
+              </a>
+              {match && match.youtubeURL !== '' ? (
+                <a href={match.youtubeURL} target="_blank">
+                  <Icon icon="youtube" />
                 </a>
-
-                <a
-                  target="_blank"
-                  href={`https://www.thebluealliance.com/match/${match.key}`}
-                >
-                  <Icon icon="tba" />
-                </a>
-                {match.youtubeURL !== '' ? (
-                  <a href={match.youtubeURL} target="_blank">
-                    <Icon icon="youtube" />
-                  </a>
-                ) : null}
-              </div>
-            ) : null}
+              ) : null}
+            </div>
             <a
               class={navigationClass}
               href={
