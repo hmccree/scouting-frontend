@@ -73,7 +73,10 @@ export const getPickListsAtEvent = (eventId: string) =>
   get<PickLists>(`picklists/event/${eventId}`)
 
 export const createPickList = (options: BasicList) =>
-  queryAPI(`picklists`, 'POST', options)
+  queryAPI('picklists', 'POST', options)
+
+export const updatePickList = (id: string, options: BasicList) =>
+  queryAPI(`picklists/${id}`, 'PUT', options)
 
 const getEvents = () => get<FRCEvent[]>('events')
 
