@@ -1,7 +1,7 @@
 export interface BasicList {
   eventKey: string
   name: string
-  list: string[]
+  list: string[] | null
 }
 
 export type PickList = BasicList & {

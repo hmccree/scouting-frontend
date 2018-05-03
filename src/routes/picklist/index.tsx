@@ -53,7 +53,9 @@ const PickList = ({ listId, eventId }: PickListProps) => (
 
         getTeams = (s: InnerPickListState) => {
           if (s.teams === null) {
-            return this.props.list === null ? [] : this.props.list.list
+            return this.props.list === null || this.props.list.list === null
+              ? []
+              : this.props.list.list
           }
           return s.teams
         }
@@ -99,13 +101,18 @@ const PickList = ({ listId, eventId }: PickListProps) => (
 
         render(
           { allTeams, list }: InnerPickListProps,
-          { teams: potentiallyTeams, draggingTeam }: InnerPickListState
+          { teams: modifiedTeams, draggingTeam }: InnerPickListState
         ) {
           if (allTeams === null || list === null) {
             return <Spinner />
           }
+          const teams =
+            modifiedTeams !== null
+              ? modifiedTeams
+              : list.list !== null
+                ? list.list
+                : []
 
-          const teams = potentiallyTeams !== null ? potentiallyTeams : list.list
           return (
             <div>
               <List>
