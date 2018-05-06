@@ -5,9 +5,13 @@ import { Component, h } from 'preact'
 import { getPickList, getTeamsAtEvent, updatePickList } from '../../api'
 import Button from '../../components/button'
 import ChooseTeam from '../../components/choose-team'
+import EditableTitle from '../../components/editable-title'
+import Icon from '../../components/icon'
 import List from '../../components/list'
 import Spinner from '../../components/spinner'
 import Resolver from '../../resolver'
+import { formatTeamNumber } from '../../utils'
+import { pickList as pickListClass } from './style.sss'
 
 polyfill({
   dragImageTranslateOverride: scrollBehaviourDragImageTranslateOverride
@@ -26,6 +30,7 @@ interface InnerPickListProps {
 interface InnerPickListState {
   teams: string[] | null
   draggingTeam: string | null
+  title: string | null
 }
 
 const PickList = ({ listId, eventId }: PickListProps) => (
@@ -38,15 +43,15 @@ const PickList = ({ listId, eventId }: PickListProps) => (
       > {
         constructor() {
           super()
-          this.state = { teams: null, draggingTeam: null }
+          this.state = { teams: null, draggingTeam: null, title: null }
         }
 
         syncList = (state: InnerPickListState = this.state) => {
           if (this.props.list !== null) {
             updatePickList(this.props.list.id, {
               eventKey: this.props.list.eventKey,
-              name: this.props.list.name,
-              list: state.teams || []
+              name: state.title !== null ? state.title : this.props.list.name,
+              list: this.getTeams(state)
             })
           }
         }
@@ -68,7 +73,8 @@ const PickList = ({ listId, eventId }: PickListProps) => (
           })
         }
 
-        removeTeam = (team: string) => () => {
+        removeTeam = (team: string) => (e: Event) => {
+          e.preventDefault()
           this.setState((s: InnerPickListState) => {
             s.teams = this.getTeams(s).filter(t => t !== team)
             this.syncList(s)
@@ -99,9 +105,14 @@ const PickList = ({ listId, eventId }: PickListProps) => (
           })
         }
 
+        setTitle = (newTitle: string) => {
+          this.setState({ title: newTitle })
+          this.syncList()
+        }
+
         render(
           { allTeams, list }: InnerPickListProps,
-          { teams: modifiedTeams, draggingTeam }: InnerPickListState
+          { teams: modifiedTeams, draggingTeam, title }: InnerPickListState
         ) {
           if (allTeams === null || list === null) {
             return <Spinner />
@@ -114,24 +125,33 @@ const PickList = ({ listId, eventId }: PickListProps) => (
                 : []
 
           return (
-            <div>
+            <div class={pickListClass}>
+              <EditableTitle
+                onEdit={this.setTitle}
+                value={title !== null ? title : list.name}
+              />
               <List>
                 {teams.map(t => (
-                  <li
-                    style={{
-                      backgroundColor: t === draggingTeam ? 'yellow' : null
-                    }}
-                    onDragEnter={this.dragEnter(t)}
-                  >
-                    <span
-                      draggable
-                      onDragStart={this.dragStart(t)}
-                      onDragEnd={this.dragEnd(t)}
+                  <li key={t}>
+                    <a
+                      href={`/events/${eventId}/team/${formatTeamNumber(
+                        t
+                      )}?back=/events/${eventId}/lists/${listId}`}
+                      data-dragging={t === draggingTeam}
+                      onDragEnter={this.dragEnter(t)}
                     >
-                      ☰
-                    </span>
-                    {t}
-                    <span onClick={this.removeTeam(t)}>ⓧ</span>
+                      {formatTeamNumber(t)}
+                      <a onClick={this.removeTeam(t)}>
+                        <Icon icon="trash" />
+                      </a>
+                      <span
+                        draggable
+                        onDragStart={this.dragStart(t)}
+                        onDragEnd={this.dragEnd(t)}
+                      >
+                        ☰
+                      </span>
+                    </a>
                   </li>
                 ))}
               </List>

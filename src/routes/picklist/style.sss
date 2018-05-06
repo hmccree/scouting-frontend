@@ -1,0 +1,28 @@
+.pickList
+  display: flex
+  flex-direction: column
+  align-items: center
+
+  & li a
+    display: grid
+    padding: 0 10px
+    grid-template-columns: auto auto 1fr auto
+    align-items: center
+    transition: 0.5s ease
+
+    & a
+      padding: 12px
+
+    & svg
+      width: 20px
+      height: 20px
+
+    & path
+      fill: gray(40%)
+
+  & [draggable]
+    grid-column-start: 4
+    padding: 12px
+
+  & [data-dragging], & [data-dragging]:hover
+    background: yellow

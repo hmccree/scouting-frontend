@@ -24,7 +24,7 @@ const PickLists = ({ eventId }: PickListProps) => (
           <List>
             {lists.map(l => (
               <li>
-                <a href={`lists/${l.id}`}>
+                <a href={`/events/${eventId}/lists/${l.id}`}>
                   {l.name} - {l.eventKey}
                 </a>
               </li>
