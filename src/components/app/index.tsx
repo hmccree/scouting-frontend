@@ -1,6 +1,6 @@
 import { h } from 'preact'
 import { Route, Router } from 'preact-router'
-import { app } from './style.sss'
+import style from './style.sss'
 
 import Error404 from '../../routes/404'
 import Admin from '../../routes/admin'
@@ -17,26 +17,26 @@ import Print from '../../routes/print'
 import Scout from '../../routes/scout'
 
 const App = () => (
-  <div id={app}>
+  <div id={style.app}>
     <Router>
       <Route path="/" component={Home} />
-      <Route path="/leaderboard" component={Leaderboard} />
-      <Route path="/login" component={Login} />
-      <Route path="/admin" component={Admin} />
       <Route path="/events/:eventId" component={Event} />
-      <Route path="/events/:eventId/analysis" component={EventAnalysis} />
-      <Route path="/events/:eventId/team/:team" component={TeamAnalysis} />
       <Route path="/events/:eventId/:matchId" component={Match} />
-      <Route path="/events/:eventId/:matchId/print" component={Print} />
+      <Route path="/events/:eventId/:matchId/scout" component={Scout} />
+      <Route path="/login" component={Login} />
       <Route
         path="/events/:eventId/:matchId/alliance/:color"
         component={AllianceAnalysis}
       />
-      <Route path="/events/:eventId/:matchId/scout" component={Scout} />
+      <Route path="/events/:eventId/team/:team" component={TeamAnalysis} />
       <Route
         path="/events/:eventId/compare/:team1?/:team2?"
         component={Compare}
       />
+      <Route path="/leaderboard" component={Leaderboard} />
+      <Route path="/admin" component={Admin} />
+      <Route path="/events/:eventId/analysis" component={EventAnalysis} />
+      <Route path="/events/:eventId/:matchId/print" component={Print} />
       <Route default component={Error404} />
     </Router>
   </div>
