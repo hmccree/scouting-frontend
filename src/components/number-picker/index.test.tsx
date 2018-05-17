@@ -1,12 +1,10 @@
-import { h, render } from 'preact'
+import { h } from 'preact'
 import testUtils from 'test-utils'
 import NumberPicker from '.'
 
 test('renders', () => {
   const cb = jest.fn()
-  const tree = testUtils<HTMLDivElement>(
-    <NumberPicker id="asdf" onChange={cb} />
-  )
+  const tree = testUtils<HTMLDivElement>(<NumberPicker onChange={cb} />)
   expect(tree).toMatchSnapshot()
   const [decrementButton, incrementButton] = Array.from(
     tree.querySelectorAll('button')

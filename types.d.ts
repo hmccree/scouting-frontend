@@ -53,7 +53,7 @@ declare module 'preact-router' {
       invoke: boolean
     ): preact.VNode[]
     routeTo(url: string): boolean
-    render(props: RouterProps, {}): preact.VNode
+    render(props: RouterProps): preact.VNode
   }
 
   export const subscribers: Array<(url: string) => void>

@@ -1,5 +1,4 @@
 import { Component, h } from 'preact'
-import { route } from 'preact-router'
 import { getEvents } from '../../api'
 import Button from '../../components/button'
 import DateDisplay from '../../components/date-display'
@@ -14,7 +13,6 @@ import {
   eventTypeName,
   getCoords,
   getJWT,
-  getUserInfo,
   hasValidJWT,
   sortEvents
 } from '../../utils'

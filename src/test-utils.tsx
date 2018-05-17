@@ -1,4 +1,4 @@
-import { render, VNode } from 'preact'
+import { render } from 'preact'
 
 const help = <T extends Element>(tree: JSX.Element): T => {
   const mountPoint = document.createElement('div')
