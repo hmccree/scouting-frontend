@@ -1,0 +1,23 @@
+.input {
+  display: block;
+  max-width: 500px;
+  margin: 10px auto;
+  padding: 10px 11px;
+  font-size: 17px;
+  background: white;
+  border: none;
+  border-radius: 2px;
+  outline: none;
+  box-shadow: 1px 1px 4px gray(0, 0.5);
+  transition: box-shadow 0.3s ease;
+  appearance: none;
+
+  &::placeholder {
+    color: gray(60%);
+    opacity: 1;
+  }
+
+  &:focus {
+    box-shadow: 1px 1px 8px gray(0, 0.7);
+  }
+}

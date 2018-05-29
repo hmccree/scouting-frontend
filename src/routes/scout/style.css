@@ -1,0 +1,40 @@
+.scout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & button {
+    margin-bottom: 1em;
+  }
+}
+
+.scoutMain {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  overflow: auto;
+}
+
+.fields {
+  width: 100%;
+  max-width: 400px;
+
+  & > label {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+
+    & :last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.notes {
+  width: 100%;
+  max-width: 360px;
+  margin: 12px 20px;
+}

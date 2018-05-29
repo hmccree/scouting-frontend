@@ -1,0 +1,49 @@
+.numberPicker {
+  & input {
+    display: inline;
+    width: 34px;
+    padding-bottom: 4px;
+    text-align: right;
+    border: 0;
+    border-bottom: 2px solid gray(50%);
+    transition: border-bottom-color 0.2s ease;
+    appearance: textfield;
+
+    &:focus {
+      border-bottom-color: purple;
+      outline: none;
+    }
+
+    &:invalid {
+      border-bottom-color: red;
+      box-shadow: none;
+    }
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      margin: 0;
+      -webkit-appearance: none;
+    }
+  }
+
+  & button {
+    margin: 5px;
+    padding: 4px 9px;
+    background: gray(0, 05%);
+    border: 0;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &::-moz-focus-inner {
+      border: 0;
+    }
+
+    &:focus,
+    &:active {
+      color: white;
+      background: purple;
+      outline: none;
+    }
+  }
+}

@@ -9,7 +9,6 @@ import serve from 'rollup-plugin-serve'
 
 const development = process.env.NODE_ENV === 'development'
 
-// hello
 const createBabelConfig = (modules = false) => {
   const babelConfigModule = JSON.parse(JSON.stringify(babelConfig))
   babelConfigModule.presets[0][1].targets = { esmodules: modules }

@@ -1,0 +1,32 @@
+.button {
+  flex-shrink: 0;
+  padding: 10px 12px;
+  color: white;
+  font-weight: 500;
+  font-size: 1em;
+  font-family: inherit;
+  text-align: center;
+  text-decoration: none;
+  background: #800080;
+  border: 0;
+  border-radius: 3px;
+  outline: none;
+  box-shadow: 1px 1px 4px gray(0, 71%);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  appearance: none;
+
+  &:hover {
+    box-shadow: 1px 1px 6px gray(0, 75%);
+  }
+
+  &:active {
+    background: color(#800080 whiteness(+10%));
+  }
+
+  &[disabled] {
+    color: gray(0, 50%);
+    background: gray(0, 10%);
+    box-shadow: unset;
+  }
+}

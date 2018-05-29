@@ -1,0 +1,30 @@
+.chart {
+  display: block;
+  width: 640px;
+  max-width: 100%;
+  margin-bottom: 1em;
+
+  & line,
+  & text {
+    stroke: #999;
+  }
+
+  & text {
+    fill: #555;
+    stroke: #555;
+  }
+
+  & circle:hover {
+    cursor: pointer;
+  }
+
+  & polyline {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
+
+.tooltip {
+  fill: #999;
+}

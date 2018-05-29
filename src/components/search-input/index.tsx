@@ -1,5 +1,5 @@
 import { h } from 'preact'
-import style from './style.sss'
+import style from './style.css'
 
 interface SearchInputEventTarget extends EventTarget {
   value: string
@@ -18,7 +18,11 @@ interface SearchInputProps {
 }
 
 const SearchInput = ({ placeholder, value, onInput }: SearchInputProps) => (
-  <input class={style.input} type="search" {...{ placeholder, value, onInput }} />
+  <input
+    class={style.input}
+    type="search"
+    {...{ placeholder, value, onInput }}
+  />
 )
 
 export default SearchInput

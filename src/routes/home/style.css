@@ -1,0 +1,126 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  & > ul > li,
+  & > ul > li > a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+  }
+}
+
+.headerContents {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr minmax(auto, 500px) 1fr;
+
+  & > input {
+    width: 100%;
+    min-width: 0;
+    color: #222;
+    grid-column: 2;
+  }
+
+  /* Needs to be after '& > input' to override it */
+  @media (width <= 700px) {
+    grid-template-columns: auto 1fr auto;
+    grid-column-gap: 10px;
+
+    /* This fixes an iOS grid bug */
+    & > input {
+      width: auto;
+      min-width: 100%;
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
+  & > a,
+  & > button {
+    align-self: center;
+    margin: 10px 0;
+    margin-left: 12px;
+    color: black;
+    background: white;
+    justify-self: end;
+
+    @media (width <= 700px) {
+      margin: 10px 0;
+      background: color(purple tint(25%));
+    }
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+  text-transform: uppercase;
+
+  & > * {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0 2px;
+    padding: 6px 8px;
+    font-size: 11px;
+    background: #d8d8d8;
+    border-radius: 99px;
+  }
+}
+
+.dcmp {
+  background: hsla(304.9, 100%, 50%, 0.2);
+}
+
+.cmp {
+  background: hsla(180, 50.2%, 57.5%, 0.5);
+}
+
+.pre {
+  background: hsla(224.3, 96.3%, 79%, 0.4);
+}
+
+.off {
+  background: hsla(40.2, 100%, 50%, 0.3);
+}
+
+.adminPanel {
+  max-width: 10px;
+}
+
+.navigationDrawerButtonContainer {
+  display: flex;
+  align-items: center;
+  padding: 0 0 0 8px;
+}
+
+.navigationDrawerButton {
+  display: inline-block;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover,
+  &:focus {
+    background: rgba(#fff, 0.1);
+  }
+
+  &:active {
+    background: rgba(#fff, 0.2);
+  }
+
+  & > svg {
+    display: block;
+    margin: 8px;
+  }
+}
