@@ -1,24 +1,77 @@
 version: 2
+
 jobs:
-  build:
+
+  lint:
     docker:
-      - image: circleci/node:9@sha256:155e6bf86845c8219587e0739078efca86ec3f4f4d5109400299ece3c20f391e
-
-    working_directory: ~/repo
-
+      - image: circleci/node:9
     steps:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-{{ checksum "yarn.lock" }}
           - v1-dependencies-
       - run: yarn install
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
+      - run: yarn danger ci
+      - run: yarn lint
+
+  type:
+    docker:
+      - image: circleci/node:9
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "yarn.lock" }}
+          - v1-dependencies-
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
       - run: yarn type
+
+  test:
+    docker:
+      - image: circleci/node:9
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "yarn.lock" }}
+          - v1-dependencies-
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
       - run: yarn test
+    
+  build:
+    docker:
+      - image: circleci/node:9
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "yarn.lock" }}
+          - v1-dependencies-
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
       - run: yarn build
 
+workflows:
+  version: 2
+  build:
+    jobs:
+      - "lint"
+      - "type"
+      - "test"
+      - "build"
