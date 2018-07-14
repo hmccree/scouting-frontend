@@ -7,7 +7,6 @@ import {
   parseMatchKey,
   hasValidJWT,
   formatTime,
-  formatDate,
   formatTeamNumber,
   parseTeamNumber,
   compareTeams,
@@ -36,10 +35,6 @@ test('capitalize', () => {
 test('formatTime', () => {
   expect(formatTime(new Date('10:30 AM 05/12/2018'))).toEqual('10:30 AM')
   expect(formatTime(new Date('20:30 05/12/2018'))).toEqual('8:30 PM')
-})
-
-test('formatDate', () => {
-  expect(formatDate(new Date('Dec. 11 2010'))).toEqual('10-12-11')
 })
 
 test('formatTeamNumber', () => {
