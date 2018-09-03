@@ -26,11 +26,7 @@ const addRequestToIdb = async (request: Req) => {
   return currentRequests.length + 1
 }
 
-const queryAPI = (
-  path: string,
-  method = 'GET',
-  body?: any
-): Promise<any> =>
+const queryAPI = (path: string, method = 'GET', body?: any): Promise<any> =>
   fetch(`${endpoint}/${path}`, {
     method,
     body: JSON.stringify(body),
