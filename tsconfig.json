@@ -8,7 +8,7 @@
     "allowJs": true,
     "checkJs": true,
     "moduleResolution": "node",
-    "target": "es5",
+    "target": "esnext",
     "sourceMap": true,
     "baseUrl": "./src",
     "skipDefaultLibCheck": true,

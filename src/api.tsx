@@ -28,7 +28,7 @@ const addRequestToIdb = async (request: Req) => {
 
 const queryAPI = (
   path: string,
-  method: string = 'GET',
+  method = 'GET',
   body?: any
 ): Promise<any> =>
   fetch(`${endpoint}/${path}`, {
@@ -68,7 +68,7 @@ const get = <T extends {}>(url: string) => (
 
 const getEvents = () => get<FRCEvent[]>('events')
 
-const getEvent = (eventKey: string) => async (
+const getEvent = (eventKey: string) => (
   cb: (err: Error | null, data: FRCEvent | null) => any
 ) => {
   get<FRCEvent>(`events/${eventKey}`)((err: Error, data: FRCEvent) => {
@@ -129,7 +129,7 @@ const registerUser = (credentials: {
   username: string
   password: string
 }): Promise<string> =>
-  queryAPI('users', 'POST', credentials).then(async resp => {
+  queryAPI('users', 'POST', credentials).then(resp => {
     if (resp.status < 200 || resp.status >= 300) {
       throw new Error(resp.status)
     }

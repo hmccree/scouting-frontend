@@ -62,7 +62,7 @@ const Alliance = ({ data, name, schema }: AllianceProps) => (
   </div>
 )
 
-export default ({ eventId, matchId }: PrintProps) => (
+const Print = ({ eventId, matchId }: PrintProps) => (
   <Resolver
     data={{
       redAlliance: getAllianceAnalysis(eventId, matchId, 'red'),
@@ -71,9 +71,6 @@ export default ({ eventId, matchId }: PrintProps) => (
     }}
     render={
       class Print extends Component<Props, {}> {
-        constructor() {
-          super()
-        }
         componentDidUpdate() {
           if (this.props.redAlliance && this.props.blueAlliance) {
             print()
@@ -97,3 +94,5 @@ export default ({ eventId, matchId }: PrintProps) => (
     }
   />
 )
+
+export default Print

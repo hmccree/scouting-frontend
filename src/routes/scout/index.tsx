@@ -81,7 +81,7 @@ const Scout = ({ eventId, matchId }: { eventId: string; matchId: string }) => {
         schema: getSchema()
       }}
       render={
-        class extends Component<ScoutProps, ScoutState> {
+        class InnerScout extends Component<ScoutProps, ScoutState> {
           teamPicker: HTMLSelectElement = null
 
           constructor() {
@@ -109,7 +109,7 @@ const Scout = ({ eventId, matchId }: { eventId: string; matchId: string }) => {
             const eventName = (event && event.shortName) || eventId
             if (schema && Object.keys(report).length === 0) {
               this.setState((state: ScoutState) => {
-                Object.keys(schema).map(fieldName => {
+                Object.keys(schema).forEach(fieldName => {
                   const fieldType = schema[fieldName]
                   if (!state.report[fieldName]) {
                     state.report[fieldName] = fieldType === 'bool' ? false : 0
