@@ -65,7 +65,8 @@
       "no-negated-condition": "off",
       "no-process-exit": "off",
       "no-alert": "off",
-      "handle-callback-err": "off"
+      "handle-callback-err": "off",
+      "caleb/react/jsx-no-bind": "off"
     }
   },
   "jest": {

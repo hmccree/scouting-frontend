@@ -82,8 +82,6 @@ const Scout = ({ eventId, matchId }: { eventId: string; matchId: string }) => {
       }}
       render={
         class InnerScout extends Component<ScoutProps, ScoutState> {
-          teamPicker: HTMLSelectElement = null
-
           constructor() {
             super()
             this.state = {
@@ -92,6 +90,8 @@ const Scout = ({ eventId, matchId }: { eventId: string; matchId: string }) => {
               notes: ''
             }
           }
+          teamPicker: HTMLSelectElement = null
+
           submit = async () => {
             await submitReport(
               this.state.team || this.teamPicker.value,
