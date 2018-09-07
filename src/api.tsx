@@ -8,7 +8,7 @@ import { User } from './models/user'
 
 import { getJWT, hasValidJWT } from './utils'
 
-const endpoint = 'https://api.pigmice.ga'
+const endpoint = 'https://api.pigmice.ga:8081'
 
 export interface Req {
   path: string
