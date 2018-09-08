@@ -77,7 +77,7 @@ export default () => (
             e => e.name.toLowerCase().includes(query.toLowerCase())
           )
 
-          const sortedEvents = sortEvents(matchingEvents, coords)
+          const sortedEvents = sortEvents(matchingEvents, coords).slice(50)
 
           return (
             <div class={style.home}>
