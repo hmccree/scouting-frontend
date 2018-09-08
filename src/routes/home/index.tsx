@@ -77,7 +77,7 @@ export default () => (
             e => e.name.toLowerCase().includes(query.toLowerCase())
           )
 
-          const sortedEvents = sortEvents(matchingEvents, coords)
+          const sortedEvents = sortEvents(matchingEvents, coords).slice(0, 25)
 
           return (
             <div class={style.home}>
@@ -112,7 +112,7 @@ export default () => (
                 'No matching events'
               ) : (
                 <List>
-                  {sortedEvents.map((e: FRCEvent) => (
+                  {sortedEvents.map(e => (
                     <li key={e.key}>
                       <a href={`/events/${e.key}`}>
                         {e.shortName || e.name}
