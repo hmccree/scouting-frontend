@@ -6,8 +6,8 @@ interface FRCEvent {
   shortName: string
   date: string
   endDate: string
-  lat?: number
-  long?: number
+  lat: number
+  long: number
   eventType: number
   parsedDate?: Date
   parsedEndDate?: Date

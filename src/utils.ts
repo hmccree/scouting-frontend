@@ -1,4 +1,3 @@
-import FRCEvent from './models/frc-event'
 import { UserInfo } from './models/user'
 
 export const hasValidJWT = (jwt: string | null): boolean => {
@@ -119,34 +118,52 @@ export const getCoords = (cb: (pos: { lat: number; long: number }) => any) => {
   })
 }
 
-const today = new Date().getTime()
+interface SortableEvent {
+  date: string
+  endDate: string
+  lat: number
+  long: number
+}
 
-export const sortEvents = (
-  events: FRCEvent[],
-  coords?: { lat: number; long: number }
+interface ParsedEvent {
+  parsedDate: Date
+  parsedEndDate: Date
+  distanceFromToday: number
+  distance?: number
+}
+
+export const sortEvents = <T extends SortableEvent>(
+  events: T[],
+  coords?: { lat: number; long: number },
+  today = Number(new Date())
 ) =>
   events !== undefined && events !== null
     ? events
         .map(e => {
-          e.parsedDate = new Date(e.date)
-          e.parsedEndDate = new Date(e.endDate)
-          e.distanceFromToday = Math.round(
-            (Number(e.parsedEndDate) - today) / 1000 / 60 / 60 / 24 / 7
+          const parsedDate = new Date(e.date)
+          const parsedEndDate = new Date(e.endDate)
+          const distanceFromToday = Math.abs(
+            Math.round(
+              (Number(parsedEndDate) - today) / 1000 / 60 / 60 / 24 / 7
+            )
           )
+          const v = Object.assign(e, {
+            parsedDate,
+            parsedEndDate,
+            distanceFromToday
+          } as ParsedEvent)
 
           if (coords !== undefined) {
-            e.distance = distanceBetween(coords.lat, coords.long, e.lat, e.long)
+            v.distance = distanceBetween(coords.lat, coords.long, e.lat, e.long)
           }
 
-          return e
+          return v
         })
         .sort((a, b) => {
           if (a.distanceFromToday === b.distanceFromToday) {
             return a.distance > b.distance ? 1 : -1
-          } else if (a.distanceFromToday > b.distanceFromToday) {
-            return a.distanceFromToday >= 0 ? 1 : -1
           }
-          return a.distanceFromToday >= 0 ? -1 : 1
+          return a.distanceFromToday < b.distanceFromToday ? -1 : 1
         })
     : []
 

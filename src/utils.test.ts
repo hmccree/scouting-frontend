@@ -16,7 +16,8 @@ import {
   camelToTitle,
   toPercentage,
   toPrettyNumber,
-  getNumber
+  getNumber,
+  sortEvents
 } from './utils'
 
 test('hasValidJWT', () => {
@@ -190,4 +191,93 @@ test('getNumber', () => {
   expect(getNumber(5)).toEqual(5)
   expect(getNumber(false)).toEqual(0)
   expect(getNumber(true)).toEqual(1)
+})
+
+test('sortEvents', () => {
+  expect(
+    sortEvents(
+      [
+        {
+          name: 'Battleship Blast (Day 2)',
+          date: '2018-09-02T00:00:00-07:00',
+          endDate: '2018-09-02T00:00:00-07:00',
+          lat: -118.27696228027344,
+          long: 33.74724197387695
+        },
+        {
+          name: 'Peak Performance',
+          lat: 47.43870162963867,
+          long: -122.27204895019531,
+          date: '2018-09-08T00:00:00-07:00',
+          endDate: '2018-09-08T00:00:00-07:00'
+        },
+        {
+          name: 'Chezy Champs',
+          lat: 37.34248352050781,
+          long: -121.91790771484375,
+          date: '2018-09-29T00:00:00-07:00',
+          endDate: '2018-09-30T00:00:00-07:00'
+        },
+        {
+          name: 'Wilsonville',
+          date: '2018-03-08T00:00:00-08:00',
+          endDate: '2018-03-10T00:00:00-08:00',
+          lat: 45.30742263793945,
+          long: -122.7477035522461
+        }
+      ],
+      {
+        lat: 45.4897497,
+        long: -122.58178889999999
+      },
+      Number(new Date('5:13 pm Sep 7 2018'))
+    )
+  ).toMatchInlineSnapshot(`
+Array [
+  Object {
+    "date": "2018-09-08T00:00:00-07:00",
+    "distance": 218.00766569333288,
+    "distanceFromToday": 0,
+    "endDate": "2018-09-08T00:00:00-07:00",
+    "lat": 47.43870162963867,
+    "long": -122.27204895019531,
+    "name": "Peak Performance",
+    "parsedDate": 2018-09-08T07:00:00.000Z,
+    "parsedEndDate": 2018-09-08T07:00:00.000Z,
+  },
+  Object {
+    "date": "2018-09-02T00:00:00-07:00",
+    "distance": 12108.757887192563,
+    "distanceFromToday": 1,
+    "endDate": "2018-09-02T00:00:00-07:00",
+    "lat": -118.27696228027344,
+    "long": 33.74724197387695,
+    "name": "Battleship Blast (Day 2)",
+    "parsedDate": 2018-09-02T07:00:00.000Z,
+    "parsedEndDate": 2018-09-02T07:00:00.000Z,
+  },
+  Object {
+    "date": "2018-09-29T00:00:00-07:00",
+    "distance": 907.6150342265221,
+    "distanceFromToday": 3,
+    "endDate": "2018-09-30T00:00:00-07:00",
+    "lat": 37.34248352050781,
+    "long": -121.91790771484375,
+    "name": "Chezy Champs",
+    "parsedDate": 2018-09-29T07:00:00.000Z,
+    "parsedEndDate": 2018-09-30T07:00:00.000Z,
+  },
+  Object {
+    "date": "2018-03-08T00:00:00-08:00",
+    "distance": 24.05911035635246,
+    "distanceFromToday": 26,
+    "endDate": "2018-03-10T00:00:00-08:00",
+    "lat": 45.30742263793945,
+    "long": -122.7477035522461,
+    "name": "Wilsonville",
+    "parsedDate": 2018-03-08T08:00:00.000Z,
+    "parsedEndDate": 2018-03-10T08:00:00.000Z,
+  },
+]
+`)
 })
