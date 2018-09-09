@@ -2155,16 +2155,16 @@ eslint-module-utils@^2.2.0:
     debug "^2.6.8"
     pkg-dir "^1.0.0"
 
-eslint-plugin-caleb@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-caleb/-/eslint-plugin-caleb-1.0.1.tgz#9931bcd8aa522e7b90e0cb56d8ffefd3109436d4"
+eslint-plugin-caleb@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-caleb/-/eslint-plugin-caleb-1.2.0.tgz#fc99f5941f1771695d57e7ad79fff81c2450269c"
   dependencies:
     eslint-plugin-import "2.14.0"
     eslint-plugin-jest "21.22.0"
     eslint-plugin-jsdoc "3.8.0"
     eslint-plugin-jsx-a11y "6.1.1"
     eslint-plugin-node "7.0.1"
-    eslint-plugin-promise "4.0.0"
+    eslint-plugin-promise "4.0.1"
     eslint-plugin-react "7.11.1"
     eslint-plugin-standard "4.0.0"
     eslint-plugin-typescript "0.12.0"
@@ -2229,9 +2229,9 @@ eslint-plugin-node@7.0.1:
     resolve "^1.8.1"
     semver "^5.5.0"
 
-eslint-plugin-promise@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-promise/-/eslint-plugin-promise-4.0.0.tgz#bc15a4aa04fa6116113b6c47488c421821b758fc"
+eslint-plugin-promise@4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-promise/-/eslint-plugin-promise-4.0.1.tgz#2d074b653f35a23d1ba89d8e976a985117d1c6a2"
 
 eslint-plugin-react@7.11.1:
   version "7.11.1"
