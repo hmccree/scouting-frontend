@@ -25,13 +25,10 @@ interface TableState {
 }
 
 class Table extends Component<TableProps, TableState> {
-  constructor() {
-    super()
-    this.state = {
-      sortBy: 'teamNumber',
-      reversed: false,
-      selectedTeam: ''
-    }
+  state = {
+    sortBy: 'teamNumber',
+    reversed: false,
+    selectedTeam: ''
   }
 
   sortBy = (stat: string) => () =>

@@ -72,10 +72,9 @@ const Print = ({ eventId, matchId }: PrintProps) => (
     render={
       class Print extends Component<Props, {}> {
         componentDidUpdate() {
-          if (this.props.redAlliance && this.props.blueAlliance) {
-            print()
-            window.close()
-          }
+          if (!(this.props.redAlliance && this.props.blueAlliance)) return
+          print()
+          window.close()
         }
         render({ redAlliance, blueAlliance, schema }: Props) {
           return (
