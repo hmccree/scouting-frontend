@@ -48,7 +48,8 @@ class Table extends Component<TableProps, TableState> {
             <th key="teamNumber" onClick={this.sortBy('teamNumber')}>
               <div>
                 <span>
-                  {sortBy === 'teamNumber' && (reversed ? ' ▲' : ' ▼')}Team
+                  {sortBy === 'teamNumber' && (reversed ? ' ▲' : ' ▼')}
+                  Team
                 </span>
               </div>
             </th>
