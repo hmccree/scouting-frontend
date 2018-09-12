@@ -2173,9 +2173,9 @@ eslint-module-utils@^2.2.0:
     debug "^2.6.8"
     pkg-dir "^1.0.0"
 
-eslint-plugin-caleb@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-caleb/-/eslint-plugin-caleb-1.2.0.tgz#fc99f5941f1771695d57e7ad79fff81c2450269c"
+eslint-plugin-caleb@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-caleb/-/eslint-plugin-caleb-1.2.1.tgz#95b6840edda958f60e41273a6569cd71a23d4b63"
   dependencies:
     eslint-plugin-import "2.14.0"
     eslint-plugin-jest "21.22.0"
