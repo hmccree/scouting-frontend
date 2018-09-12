@@ -16,10 +16,20 @@ const createBabelConfig = (modules = false) => {
   return babelConfigModule
 }
 
+const babelExts = ['.js', '.ts', '.tsx', '.mjs']
+
 const plugins = {
   resolve: resolve({ extensions: ['.js', '.ts', '.tsx', '.mjs', '.sss'] }),
-  babel: babel({ babelrc: false, ...createBabelConfig(false) }),
-  babelModule: babel({ babelrc: false, ...createBabelConfig(true) }),
+  babel: babel({
+    babelrc: false,
+    extensions: babelExts,
+    ...createBabelConfig(false)
+  }),
+  babelModule: babel({
+    babelrc: false,
+    extensions: babelExts,
+    ...createBabelConfig(true)
+  }),
   terser: terser({
     module: true,
     compress: {
